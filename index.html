@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="献立帳">
+<meta name="theme-color" content="#B85C2A">
+<link rel="manifest" href="manifest.json">
+<title>献立帳</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1EB;
+  --surface: #FEFCF8;
+  --surface2: #EDE8DF;
+  --accent: #B85C2A;
+  --accent-light: #F2E4D8;
+  --green: #5A8C4A;
+  --green-light: #DFF0D8;
+  --blue: #3A6EA8;
+  --blue-light: #D8E8F5;
+  --text: #1C1814;
+  --text2: #6B5F55;
+  --text3: #A8998E;
+  --border: #D8D0C5;
+  --danger: #B84040;
+  --shadow-sm: 0 1px 4px rgba(28,24,20,.06);
+  --shadow: 0 2px 12px rgba(28,24,20,.10);
+  --r: 14px;
+  --r-sm: 8px;
+  --nav-h: 60px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:50}
+.hdr-logo{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--accent);letter-spacing:-.02em}
+.hdr-week{font-size:12px;color:var(--text2);text-align:right;line-height:1.4}
+.hdr-week strong{display:block;font-size:13px;color:var(--text);font-weight:500}
+.week-nav{display:flex;align-items:center;gap:6px}
+.week-btn{background:var(--surface2);border:none;border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2);transition:background .15s}
+.week-btn:active{background:var(--border)}
+
+/* ── SCROLL AREA ── */
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px calc(var(--nav-h) + var(--safe-b) + 16px)}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-b));background:var(--surface);border-top:1px solid var(--border);display:flex;padding-bottom:var(--safe-b);z-index:100}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;padding:8px 0 4px;color:var(--text3);transition:color .15s}
+.bnav-btn.active{color:var(--accent)}
+.bnav-icon{font-size:22px;line-height:1}
+.bnav-label{font-size:10px;font-weight:500;letter-spacing:.02em}
+
+/* ── PAGE ── */
+.page{display:none}.page.active{display:block}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;box-shadow:var(--shadow-sm)}
+.card-hd{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500;white-space:nowrap}
+.pill-orange{background:var(--accent-light);color:var(--accent)}
+.pill-green{background:var(--green-light);color:var(--green)}
+.pill-blue{background:var(--blue-light);color:var(--blue)}
+
+/* ── MENU PAGE ── */
+.day-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.day-hd{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--surface2);cursor:pointer;user-select:none}
+.day-lbl{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;min-width:24px}
+.day-date{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.day-body{padding:10px 14px;display:grid;gap:7px}
+.meal-row{display:grid;grid-template-columns:32px 1fr auto;align-items:start;gap:8px;font-size:13px}
+.meal-t{font-size:10px;color:var(--text3);font-weight:500;padding-top:2px}
+.meal-n{line-height:1.5;color:var(--text)}
+.day-card.collapsed .day-body{display:none}
+.toggle-icon{margin-left:auto;font-size:11px;color:var(--text3);transition:transform .2s}
+.day-card:not(.collapsed) .toggle-icon{transform:rotate(180deg)}
+
+/* ── SHOPPING PAGE ── */
+.trip-hd{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px}
+.trip-title{font-size:13px;font-weight:500;color:var(--text)}
+.shop-item{display:grid;grid-template-columns:32px 1fr 54px 74px;align-items:center;gap:8px;padding:9px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:5px;transition:opacity .2s}
+.shop-item.done{opacity:.4}
+.shop-item.done .sname{text-decoration:line-through}
+.schk{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border);appearance:none;cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:all .15s}
+.schk:checked{background:var(--green);border-color:var(--green)}
+.schk:checked::after{content:'✓';color:#fff;font-size:12px}
+.sname{font-size:13px}.samt{font-size:11px;color:var(--text3);text-align:right}
+.sest{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-align:right}
+.sinput{font-size:12px;font-family:'DM Mono',monospace;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 6px;width:100%;color:var(--text);text-align:right}
+.sinput:focus{outline:none;border-color:var(--blue)}
+.trip-footer{display:flex;justify-content:space-between;font-size:12px;padding:6px 2px;color:var(--text2);font-family:'DM Mono',monospace}
+
+/* ── BUDGET PAGE ── */
+.bsum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.bcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 8px;text-align:center}
+.bcard .num{font-family:'DM Mono',monospace;font-size:18px;font-weight:500}
+.bcard .lbl{font-size:10px;color:var(--text2);margin-top:3px}
+.bcard.ok .num{color:var(--green)}
+.bcard.warn .num{color:var(--accent)}
+.bcard.over .num{color:var(--danger)}
+.bar-wrap{background:var(--surface2);border-radius:99px;height:8px;overflow:hidden;margin:8px 0 4px}
+.bar-fill{height:8px;border-radius:99px;transition:width .5s ease;background:var(--green)}
+.bar-fill.warn{background:var(--accent)}
+.bar-fill.over{background:var(--danger)}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.history-item:last-child{border-bottom:none}
+
+/* ── RECIPE PAGE ── */
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.rhd{padding:13px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.rtitle{font-size:14px;font-weight:500}
+.rsub{font-size:11px;color:var(--text3);margin-top:2px}
+.rbody{padding:0 14px 14px;border-top:1px solid var(--border)}
+.rlabel{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px}
+.ingr-wrap{display:flex;flex-wrap:wrap;gap:5px}
+.ingr{font-size:12px;background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:3px 10px}
+.ingr strong{color:var(--accent);font-weight:500}
+.steps{list-style:none;display:grid;gap:8px}
+.steps li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:13px;line-height:1.6}
+.step-n{width:20px;height:20px;border-radius:99px;background:var(--accent);color:#fff;font-size:10px;display:grid;place-items:center;flex-shrink:0;margin-top:2px;font-family:'DM Mono',monospace}
+.tip{margin-top:10px;padding:10px 12px;background:var(--accent-light);border-radius:var(--r-sm);font-size:12px;color:var(--text2);border-left:3px solid var(--accent)}
+
+/* ── AI CHAT PAGE ── */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 54px - var(--nav-h) - var(--safe-b));position:fixed;top:54px;left:0;right:0;bottom:calc(var(--nav-h) + var(--safe-b))}
+.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:grid;gap:10px;align-content:start}
+.chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border)}
+.chat-row{display:flex;gap:8px;align-items:flex-end}
+.chat-row.user{flex-direction:row-reverse}
+.bubble{max-width:80%;padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.6}
+.bubble.ai{background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:4px}
+.bubble.user{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+.bubble.thinking{color:var(--text3);font-style:italic}
+.chat-avatar{width:28px;height:28px;border-radius:99px;background:var(--accent-light);display:grid;place-items:center;font-size:14px;flex-shrink:0}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:12px;padding:10px 13px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);resize:none;min-height:42px;max-height:100px;line-height:1.5}
+.chat-input:focus{outline:none;border-color:var(--blue)}
+.send-btn{width:42px;height:42px;border-radius:12px;background:var(--accent);border:none;color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:opacity .15s}
+.send-btn:disabled{opacity:.4}
+.apply-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:6px 12px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:500}
+.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.quick-btn{font-size:11px;padding:5px 10px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s}
+.quick-btn:active{background:var(--surface2)}
+
+/* ── MISC ── */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-title{font-size:17px;font-weight:700}
+.btn{padding:8px 16px;border-radius:var(--r-sm);border:none;font-size:13px;font-family:inherit;cursor:pointer;font-weight:500;transition:all .15s}
+.btn-primary{background:var(--accent);color:#fff}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+input[type=number]{-moz-appearance:textfield}.input-num::-webkit-inner-spin-button{-webkit-appearance:none}
+.empty{text-align:center;padding:32px 16px;color:var(--text3);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-logo">🍱 献立帳</div>
+  <div class="week-nav">
+    <button class="week-btn" onclick="changeWeek(-1)">‹</button>
+    <div class="hdr-week" id="hdr-week-label"><strong>今週</strong><span>読込中…</span></div>
+    <button class="week-btn" onclick="changeWeek(1)">›</button>
+  </div>
+</header>
+
+<div class="scroll" id="main-scroll">
+  <!-- MENU -->
+  <div id="page-menu" class="page active">
+    <div class="section-hd">
+      <div class="section-title">今週の献立</div>
+      <button class="btn btn-secondary" style="font-size:11px;padding:6px 10px" onclick="showPage('ai')">🤖 AIで更新</button>
+    </div>
+    <div id="menu-list"></div>
+  </div>
+
+  <!-- SHOPPING -->
+  <div id="page-shop" class="page">
+    <div class="section-hd">
+      <div class="section-title">買い出しリスト</div>
+      <button class="btn btn-secondary" style="font-size:11px;padding:6px 10px" onclick="resetChecks()">リセット</button>
+    </div>
+    <div id="shop-list"></div>
+  </div>
+
+  <!-- BUDGET -->
+  <div id="page-budget" class="page">
+    <div class="section-hd"><div class="section-title">予算管理</div></div>
+    <div class="bsum" id="bsum"></div>
+    <div class="card">
+      <div class="card-hd">週の予算目標</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="number" id="budget-inp" class="sinput input-num" placeholder="4200" style="width:100%;padding:10px;font-size:15px;border-radius:10px">
+        <span style="font-size:14px;color:var(--text2)">円</span>
+      </div>
+    </div>
+    <div class="card" id="budget-detail"></div>
+    <div class="card">
+      <div class="card-hd">過去の週 支出履歴</div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <!-- RECIPE -->
+  <div id="page-recipe" class="page">
+    <div class="section-hd"><div class="section-title">レシピ</div></div>
+    <div id="recipe-list"></div>
+  </div>
+</div>
+
+<!-- AI CHAT (full-screen overlay mode) -->
+<div id="page-ai" class="page" style="position:fixed;top:54px;left:0;right:0;bottom:calc(var(--nav-h) + var(--safe-b));background:var(--bg);z-index:40;display:none;flex-direction:column">
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-foot">
+    <div class="quick-btns" id="quick-btns">
+      <button class="quick-btn" onclick="quickSend('今週のメニューを提案して')">📋 今週の提案</button>
+      <button class="quick-btn" onclick="quickSend('先週と被らないメニューにして')">🔄 先週と変える</button>
+      <button class="quick-btn" onclick="quickSend('つまみ系を増やして')">🍺 つまみ増量</button>
+      <button class="quick-btn" onclick="quickSend('今週の買い物リストを整理して')">🛒 買い物整理</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chat-input" placeholder="メニューについて相談する…" rows="1" onkeydown="chatKeydown(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="send-btn" onclick="sendChat()">↑</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bnav">
+  <button class="bnav-btn active" data-page="menu" onclick="showPage('menu',this)">
+    <span class="bnav-icon">📅</span><span class="bnav-label">献立</span>
+  </button>
+  <button class="bnav-btn" data-page="shop" onclick="showPage('shop',this)">
+    <span class="bnav-icon">🛒</span><span class="bnav-label">買い出し</span>
+  </button>
+  <button class="bnav-btn" data-page="budget" onclick="showPage('budget',this)">
+    <span class="bnav-icon">💴</span><span class="bnav-label">予算</span>
+  </button>
+  <button class="bnav-btn" data-page="recipe" onclick="showPage('recipe',this)">
+    <span class="bnav-icon">🍳</span><span class="bnav-label">レシピ</span>
+  </button>
+  <button class="bnav-btn" data-page="ai" onclick="showPage('ai',this)">
+    <span class="bnav-icon">🤖</span><span class="bnav-label">AI相談</span>
+  </button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════
+//  DATA & STORAGE
+// ═══════════════════════════════════════════
+const DAYS_JP = ['日','月','火','水','木','金','土'];
+
+function weekKey(offset=0){
+  const d=new Date();
+  const mon=new Date(d);
+  mon.setDate(d.getDate()-((d.getDay()+6)%7)+offset*7);
+  mon.setHours(0,0,0,0);
+  return mon.toISOString().slice(0,10);
+}
+
+function weekDates(mondayStr){
+  const mon=new Date(mondayStr);
+  return Array.from({length:7},(_,i)=>{
+    const d=new Date(mon);d.setDate(mon.getDate()+i);return d;
+  });
+}
+
+function fmtDate(d){return `${d.getMonth()+1}/${d.getDate()}`;}
+function fmtWeekLabel(mondayStr){
+  const dates=weekDates(mondayStr);
+  return `${fmtDate(dates[0])}（月）〜${fmtDate(dates[6])}（日）`;
+}
+
+function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
+function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
+
+// ═══════════════════════════════════════════
+//  DEFAULT MENU TEMPLATE (1.5人前ベース)
+// ═══════════════════════════════════════════
+const DEFAULT_MENU=[
+  {day:'月',badges:[{t:'買い出し①',c:'green'}],meals:[
+    {t:'朝',n:'トースト＋ハムエッグ',ts:false},
+    {t:'昼',n:'醤油ラーメン（卵・ねぎトッピング）',ts:false},
+    {t:'夜',n:'鶏もも醤油バター炒め・キャベツ千切り・味噌汁',ts:true}]},
+  {day:'火',badges:[],meals:[
+    {t:'朝',n:'ご飯＋卵かけごはん or 納豆',ts:false},
+    {t:'昼',n:'冷凍うどん（めんつゆ・天かす）',ts:false},
+    {t:'夜',n:'豚こま回鍋肉風・ご飯・味噌汁',ts:true}]},
+  {day:'水',badges:[],meals:[
+    {t:'朝',n:'トースト＋目玉焼き',ts:false},
+    {t:'昼',n:'焼きそば（豚こま・もやし）',ts:false},
+    {t:'夜',n:'さつま揚げ炒め煮・大根浅漬け・ご飯',ts:true}]},
+  {day:'木',badges:[{t:'買い出し②',c:'green'}],meals:[
+    {t:'朝',n:'ご飯＋納豆 or 卵焼き',ts:false},
+    {t:'昼',n:'冷凍うどん（卵・天かす）',ts:false},
+    {t:'夜',n:'豚バラじゃがいも煮物・ご飯・もやし味噌汁',ts:true}]},
+  {day:'金',badges:[],meals:[
+    {t:'朝',n:'トースト＋ハムエッグ',ts:false},
+    {t:'昼',n:'木曜の煮物残り＋ご飯',ts:false},
+    {t:'夜',n:'豆腐ステーキ ポン酢バター・もやしナムル',ts:true}]},
+  {day:'土',badges:[{t:'作り置き',c:'orange'}],meals:[
+    {t:'朝',n:'ご飯＋目玉焼き・納豆',ts:false},
+    {t:'昼',n:'ちゃんぽん風ラーメン（冷凍野菜・豚こま）',ts:false},
+    {t:'夜',n:'黒豚しゃぶしゃぶ（ポン酢・ごまだれ）',ts:true},
+    {t:'仕込',n:'唐揚げ冷凍・ひじき煮・きんぴら',ts:false}]},
+  {day:'日',badges:[{t:'作り置き',c:'orange'}],meals:[
+    {t:'朝',n:'ご飯＋作り置きおかず',ts:false},
+    {t:'昼',n:'チャーハン（ご飯消費）',ts:false},
+    {t:'夜',n:'豚キムチ鍋（残り野菜全投入）〆雑炊',ts:true},
+    {t:'仕込',n:'麻婆豆腐・卵そぼろ（冷凍）',ts:false}]},
+];
+
+const DEFAULT_SHOP=[
+  {trip:'買い出し①（月曜）',items:[
+    {n:'鶏もも肉',a:'450g',e:320},{n:'豚こま肉',a:'450g',e:380},{n:'卵',a:'10個パック',e:220},
+    {n:'キャベツ',a:'1/2玉',e:100},{n:'大根',a:'1/2本',e:80},{n:'もやし',a:'2袋',e:60},
+    {n:'豆腐',a:'2丁',e:120},{n:'さつま揚げ',a:'1パック',e:200},{n:'納豆',a:'3パック',e:120},
+    {n:'冷凍うどん',a:'5個入',e:200},{n:'食パン',a:'1斤',e:160},{n:'ハム',a:'1パック',e:150},
+  ]},
+  {trip:'買い出し②（木曜）',items:[
+    {n:'豚バラ薄切り',a:'300g',e:300},{n:'黒豚しゃぶ用',a:'200g',e:480},{n:'豚バラ（鍋用）',a:'200g',e:240},
+    {n:'じゃがいも',a:'3個',e:120},{n:'ごぼう',a:'1本',e:100},{n:'ひじき（乾）',a:'1袋',e:120},
+    {n:'キムチ',a:'150g',e:180},{n:'もやし',a:'2袋',e:60},{n:'豆腐',a:'2丁',e:120},
+    {n:'冷凍野菜ミックス',a:'1袋',e:150},{n:'インスタントラーメン',a:'2食',e:160},{n:'食パン',a:'1斤',e:160},
+  ]},
+];
+
+const RECIPES=[
+  {title:'鶏もも醤油バター炒め',day:'月・夜',ts:true,easy:true,srv:'1.5人前',
+   ingr:[{n:'鶏もも肉',q:'225g'},{n:'キャベツ',q:'1/4玉'},{n:'醤油',q:'大さじ1.5'},{n:'バター',q:'10g'},{n:'にんにく',q:'1片'},{n:'塩コショウ',q:'少々'}],
+   steps:['鶏もも肉を一口大に切り塩コショウで下味。','皮目から中火で3分焼く。','裏返してにんにく加え2分。','醤油・バターを絡めてキャベツを30秒炒めて完成。'],
+   tip:'バターは最後に入れると香りが飛ばない。焼き色をしっかりつけるとつまみ度UP。'},
+  {title:'豚こま回鍋肉風',day:'火・夜',ts:true,easy:true,srv:'1.5人前',
+   ingr:[{n:'豚こま肉',q:'225g'},{n:'キャベツ',q:'1/4玉'},{n:'味噌',q:'大さじ1'},{n:'みりん',q:'大さじ1'},{n:'醤油',q:'小さじ1'},{n:'豆板醤',q:'小さじ1/2'},{n:'にんにく',q:'1片'}],
+   steps:['味噌・みりん・醤油・豆板醤を合わせてたれを作る。','豚こまを強火で炒め色が変わったらキャベツを加える。','たれを回しかけて全体に絡めて完成。'],
+   tip:'たれを先に合わせておくと焦げない。キャベツはシャキシャキが旨い。'},
+  {title:'豚バラじゃがいも煮物',day:'木・夜',ts:true,easy:false,srv:'1.5人前＋翌昼分',
+   ingr:[{n:'豚バラ薄切り',q:'225g'},{n:'じゃがいも',q:'3個'},{n:'醤油',q:'大さじ2'},{n:'みりん',q:'大さじ2'},{n:'砂糖',q:'大さじ1'},{n:'だし',q:'300ml'}],
+   steps:['じゃがいもは大きめ乱切り、豚バラは4cm切り。','鍋で豚バラを炒め、じゃがいもを加える。','だし・調味料を入れ落し蓋して中火15分。','じゃがいもに火が通れば完成。'],
+   tip:'多めに作って翌昼に使うのがコスパ最強。冷凍もできる。'},
+  {title:'豆腐ステーキ ポン酢バター',day:'金・夜',ts:true,easy:true,srv:'1.5人前',
+   ingr:[{n:'木綿豆腐',q:'1.5丁'},{n:'バター',q:'15g'},{n:'ポン酢',q:'大さじ2'},{n:'片栗粉',q:'大さじ1'},{n:'ごま油',q:'小さじ1'}],
+   steps:['豆腐をキッチンペーパーで10分水切り。1.5cm厚に切る。','両面に片栗粉をまぶす。','ごま油で両面きつね色に焼く（各2分）。','バター・ポン酢を絡めて完成。'],
+   tip:'片栗粉で外カリ中トロに。コスパ最強つまみ。'},
+  {title:'黒豚しゃぶしゃぶ',day:'土・夜',ts:true,easy:true,srv:'1.5人前',
+   ingr:[{n:'黒豚しゃぶ用',q:'200g'},{n:'白菜orキャベツ',q:'1/4個'},{n:'豆腐',q:'1丁'},{n:'だし昆布',q:'10cm'},{n:'ポン酢・ごまだれ',q:'各適量'}],
+   steps:['水と昆布を火にかけ沸騰前に昆布を取り出す。','野菜・豆腐を入れて煮る。','豚肉をしゃぶしゃぶしてたれで。','〆はうどんか雑炊がおすすめ。'],
+   tip:'鹿児島産黒豚は脂の甘みが別格。1食500円台に収まるのがすごい。'},
+  {title:'豚キムチ鍋',day:'日・夜',ts:true,easy:true,srv:'1.5人前（残り野菜全投入）',
+   ingr:[{n:'豚バラ薄切り',q:'225g'},{n:'キムチ',q:'150g'},{n:'豆腐',q:'1丁'},{n:'もやし',q:'1袋'},{n:'キャベツ',q:'残り全部'},{n:'鶏ガラスープ',q:'小さじ2'},{n:'醤油',q:'大さじ1'}],
+   steps:['ごま油で豚バラとキムチを炒める。','水500mlと鶏ガラ・醤油を加え煮立てる。','野菜・豆腐を入れ蓋して5分。','〆に残りご飯と卵で雑炊にして食材使い切り。'],
+   tip:'残り野菜を全部使い切れる最強レシピ。キムチが旨みを全部引き受ける。'},
+];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let currentWeekOffset=0;
+
+function getWeekData(key){
+  const all=ls('weeks',{});
+  if(!all[key]){
+    all[key]={menu:JSON.parse(JSON.stringify(DEFAULT_MENU)),shop:JSON.parse(JSON.stringify(DEFAULT_SHOP)),checks:{},actuals:{},budget:ls('budget_target',4200)};
+    ss('weeks',all);
+  }
+  return all[key];
+}
+
+function saveWeekData(key,data){
+  const all=ls('weeks',{});
+  all[key]=data;
+  ss('weeks',all);
+}
+
+function currentKey(){return weekKey(currentWeekOffset);}
+function currentData(){return getWeekData(currentKey());}
+
+// ═══════════════════════════════════════════
+//  HEADER
+// ═══════════════════════════════════════════
+function updateHeader(){
+  const key=currentKey();
+  const dates=weekDates(key);
+  const isThis=currentWeekOffset===0;
+  const isPast=currentWeekOffset<0;
+  const label=isThis?'今週':`${Math.abs(currentWeekOffset)}週${isPast?'前':'後'}`;
+  document.getElementById('hdr-week-label').innerHTML=`<strong>${label}</strong><span>${fmtWeekLabel(key)}</span>`;
+}
+
+function changeWeek(dir){
+  currentWeekOffset+=dir;
+  updateHeader();
+  renderAll();
+}
+
+// ═══════════════════════════════════════════
+//  RENDER MENU
+// ═══════════════════════════════════════════
+function renderMenu(){
+  const data=currentData();
+  const dates=weekDates(currentKey());
+  const list=document.getElementById('menu-list');
+  list.innerHTML=data.menu.map((d,di)=>`
+    <div class="day-card" id="daycard-${di}">
+      <div class="day-hd" onclick="toggleDay(${di})">
+        <span class="day-lbl">${d.day}</span>
+        <span class="day-date">${fmtDate(dates[di])}</span>
+        ${d.badges.map(b=>`<span class="pill pill-${b.c}">${b.t}</span>`).join('')}
+        <span class="toggle-icon">▲</span>
+      </div>
+      <div class="day-body">
+        ${d.meals.map(m=>`
+          <div class="meal-row">
+            <span class="meal-t">${m.t}</span>
+            <span class="meal-n">${m.n}</span>
+            ${m.ts?'<span class="pill pill-orange">つまみ◎</span>':'<span></span>'}
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function toggleDay(di){
+  document.getElementById(`daycard-${di}`).classList.toggle('collapsed');
+}
+
+// ═══════════════════════════════════════════
+//  RENDER SHOPPING
+// ═══════════════════════════════════════════
+function renderShop(){
+  const data=currentData();
+  const list=document.getElementById('shop-list');
+  list.innerHTML=data.shop.map((trip,ti)=>{
+    let estTotal=0,actTotal=0,hasAct=false;
+    const itemsHtml=trip.items.map((item,ii)=>{
+      const key=`${ti}-${ii}`;
+      const chk=data.checks[key]||false;
+      const act=data.actuals[key]??'';
+      estTotal+=item.e;
+      if(act!==''){actTotal+=parseInt(act);hasAct=true;}
+      return `<div class="shop-item ${chk?'done':''}" id="si-${ti}-${ii}">
+        <input type="checkbox" class="schk" ${chk?'checked':''} onchange="toggleCheck(${ti},${ii},this.checked)">
+        <span class="sname">${item.n}</span>
+        <span class="samt">${item.a}</span>
+        <input type="number" class="sinput input-num" placeholder="${item.e}" value="${act}" oninput="saveActual(${ti},${ii},this.value)">
+      </div>`;
+    }).join('');
+    return `<div>
+      <div class="trip-hd">
+        <span class="trip-title">${trip.trip}</span>
+        <span class="pill pill-blue">目安¥${estTotal.toLocaleString()}</span>
+      </div>
+      ${itemsHtml}
+      <div class="trip-footer">
+        <span>実績小計</span>
+        <span>${hasAct?'¥'+actTotal.toLocaleString():'—'}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCheck(ti,ii,val){
+  const key=currentKey();const data=currentData();
+  data.checks[`${ti}-${ii}`]=val;saveWeekData(key,data);
+  const el=document.getElementById(`si-${ti}-${ii}`);
+  if(el)el.classList.toggle('done',val);
+  renderBudget();
+}
+
+function saveActual(ti,ii,val){
+  const key=currentKey();const data=currentData();
+  data.actuals[`${ti}-${ii}`]=val===''?'':parseInt(val);
+  saveWeekData(key,data);renderBudget();
+}
+
+function resetChecks(){
+  const key=currentKey();const data=currentData();
+  data.checks={};saveWeekData(key,data);renderShop();
+}
+
+// ═══════════════════════════════════════════
+//  RENDER BUDGET
+// ═══════════════════════════════════════════
+function renderBudget(){
+  const data=currentData();
+  const target=parseInt(document.getElementById('budget-inp')?.value||data.budget)||4200;
+  let estTotal=0,actTotal=0,hasAct=false;
+  data.shop.forEach((trip,ti)=>trip.items.forEach((item,ii)=>{
+    estTotal+=item.e;
+    const v=data.actuals[`${ti}-${ii}`];
+    if(v!==''&&v!==undefined){actTotal+=parseInt(v);hasAct=true;}
+  }));
+  const spent=hasAct?actTotal:0;
+  const pct=target>0?Math.min(spent/target*100,100):0;
+  const diff=target-spent;
+  const cls=pct<70?'ok':pct<95?'warn':'over';
+  document.getElementById('bsum').innerHTML=`
+    <div class="bcard"><div class="num">¥${target.toLocaleString()}</div><div class="lbl">週の予算</div></div>
+    <div class="bcard ${hasAct?cls:''}"><div class="num">${hasAct?'¥'+spent.toLocaleString():'—'}</div><div class="lbl">実績支出</div></div>
+    <div class="bcard ${hasAct?(diff>=0?'ok':'over'):''}"><div class="num">${hasAct?(diff>=0?'+':'')+diff.toLocaleString()+'円':'—'}</div><div class="lbl">${hasAct?(diff>=0?'残り':'オーバー'):'入力待ち'}</div></div>`;
+
+  const bd=document.getElementById('budget-detail');
+  if(bd){
+    const barCls=pct>=95?'over':pct>=75?'warn':'';
+    bd.innerHTML=`<div class="card-hd">支出内訳</div>
+      <div class="bar-wrap"><div class="bar-fill ${barCls}" style="width:${pct.toFixed(1)}%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:12px"><span>¥0</span><span>${hasAct?Math.round(pct)+'%':''}</span><span>¥${target.toLocaleString()}</span></div>
+      ${data.shop.map((trip,ti)=>{
+        let te=0,ta=0,has=false;
+        trip.items.forEach((item,ii)=>{te+=item.e;const v=data.actuals[`${ti}-${ii}`];if(v!==''&&v!==undefined){ta+=parseInt(v);has=true;}});
+        return `<div class="history-item"><span>${trip.trip}</span><span style="font-family:'DM Mono',monospace">${has?'¥'+ta.toLocaleString():'¥'+te+' (予算)'}</span></div>`;
+      }).join('')}
+      <div class="history-item" style="font-weight:500"><span>週計</span><span style="font-family:'DM Mono',monospace">¥${(hasAct?actTotal:estTotal).toLocaleString()}${hasAct?'':' (予算)'}</span></div>`;
+  }
+
+  // history
+  const all=ls('weeks',{});
+  const keys=Object.keys(all).sort().reverse().filter(k=>k!==currentKey());
+  const hl=document.getElementById('history-list');
+  if(hl){
+    if(keys.length===0){hl.innerHTML='<div class="empty">過去の履歴はまだありません</div>';return;}
+    hl.innerHTML=keys.slice(0,8).map(k=>{
+      const wd=all[k];let tot=0,has=false;
+      if(wd.shop)wd.shop.forEach((trip,ti)=>trip.items.forEach((item,ii)=>{
+        const v=wd.actuals?.[`${ti}-${ii}`];
+        if(v!==''&&v!==undefined){tot+=parseInt(v);has=true;}
+      }));
+      return `<div class="history-item"><span style="font-size:12px;color:var(--text2)">${fmtWeekLabel(k)}</span><span style="font-family:'DM Mono',monospace;font-size:13px">${has?'¥'+tot.toLocaleString():'—'}</span></div>`;
+    }).join('');
+  }
+}
+
+function saveBudgetTarget(){
+  const v=parseInt(document.getElementById('budget-inp').value)||4200;
+  const key=currentKey();const data=currentData();
+  data.budget=v;saveWeekData(key,data);ss('budget_target',v);renderBudget();
+}
+
+// ═══════════════════════════════════════════
+//  RENDER RECIPE
+// ═══════════════════════════════════════════
+function renderRecipes(){
+  const list=document.getElementById('recipe-list');
+  list.innerHTML=RECIPES.map((r,ri)=>`
+    <div class="rcard">
+      <div class="rhd" onclick="toggleRecipe(${ri})">
+        <div>
+          <div class="rtitle">${r.title}</div>
+          <div class="rsub">${r.day}｜${r.srv}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          ${r.ts?'<span class="pill pill-orange">つまみ◎</span>':''}
+          ${r.easy?'<span class="pill pill-green">簡単</span>':''}
+          <span id="rchev-${ri}" style="font-size:12px;color:var(--text3);transition:transform .2s">▼</span>
+        </div>
+      </div>
+      <div class="rbody" id="rbody-${ri}" style="display:none">
+        <div class="rlabel">食材（${r.srv}）</div>
+        <div class="ingr-wrap">${r.ingr.map(i=>`<span class="ingr"><strong>${i.n}</strong> ${i.q}</span>`).join('')}</div>
+        <div class="rlabel">作り方</div>
+        <ol class="steps">${r.steps.map((s,si)=>`<li><span class="step-n">${si+1}</span><span>${s}</span></li>`).join('')}</ol>
+        ${r.tip?`<div class="tip">💡 ${r.tip}</div>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function toggleRecipe(ri){
+  const body=document.getElementById(`rbody-${ri}`);
+  const chev=document.getElementById(`rchev-${ri}`);
+  const open=body.style.display==='none';
+  body.style.display=open?'block':'none';
+  chev.style.transform=open?'rotate(180deg)':'';
+}
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+let currentPage='menu';
+function showPage(name,btn){
+  const isAI=name==='ai';
+  // hide all pages
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+    if(p.id==='page-ai')p.style.display='none';
+  });
+  document.getElementById('main-scroll').style.display=isAI?'none':'block';
+
+  if(isAI){
+    const aiPage=document.getElementById('page-ai');
+    aiPage.style.display='flex';
+    aiPage.classList.add('active');
+    if(!chatInitialized)initChat();
+    setTimeout(()=>document.getElementById('chat-msgs').scrollTo(0,9999),100);
+  } else {
+    document.getElementById('main-scroll').style.display='block';
+    const pg=document.getElementById(`page-${name}`);
+    if(pg){pg.classList.add('active');}
+    if(name==='budget'){
+      const inp=document.getElementById('budget-inp');
+      if(inp&&!inp.value)inp.value=currentData().budget||'';
+      renderBudget();
+    }
+  }
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else document.querySelector(`[data-page="${name}"]`)?.classList.add('active');
+  currentPage=name;
+}
+
+// ═══════════════════════════════════════════
+//  AI CHAT
+// ═══════════════════════════════════════════
+let chatHistory=[];
+let chatInitialized=false;
+
+function initChat(){
+  chatInitialized=true;
+  chatHistory=ls('chat_history',[]);
+  const msgs=document.getElementById('chat-msgs');
+  if(chatHistory.length===0){
+    addBubble('ai','こんにちは！献立アシスタントです🍱\n\n今週の献立の相談、買い物リストの整理、リピートメニューの調整など何でもどうぞ。下のボタンからも始められます！');
+  } else {
+    msgs.innerHTML='';
+    chatHistory.forEach(m=>addBubble(m.role,m.content,true));
+  }
+  setTimeout(()=>msgs.scrollTo(0,9999),100);
+}
+
+function addBubble(role,text,noSave=false){
+  const msgs=document.getElementById('chat-msgs');
+  const isAI=role==='ai'||role==='assistant';
+  const div=document.createElement('div');
+  div.className=`chat-row ${isAI?'':'user'}`;
+
+  // parse apply-menu tags
+  let html=text.replace(/\n/g,'<br>');
+  const applyMatch=text.match(/\[APPLY_MENU:([\s\S]*?)\]/);
+  if(applyMatch){
+    html=html.replace(/\[APPLY_MENU:[\s\S]*?\]/g,'');
+    div.dataset.menuJson=applyMatch[1];
+    html+=`<br><button class="apply-btn" onclick="applyMenuFromBubble(this)">✅ この献立を反映する</button>`;
+  }
+
+  div.innerHTML=`
+    ${isAI?'<div class="chat-avatar">🍱</div>':''}
+    <div class="bubble ${isAI?'ai':'user'}">${html}</div>
+    ${!isAI?'<div class="chat-avatar" style="background:var(--blue-light)">👤</div>':''}`;
+  msgs.appendChild(div);
+  msgs.scrollTo({top:9999,behavior:'smooth'});
+
+  if(!noSave){
+    chatHistory.push({role:isAI?'assistant':'user',content:text});
+    if(chatHistory.length>30)chatHistory=chatHistory.slice(-30);
+    ss('chat_history',chatHistory);
+  }
+}
+
+function applyMenuFromBubble(btn){
+  const bubble=btn.closest('.chat-row');
+  try{
+    const menuData=JSON.parse(bubble.dataset.menuJson);
+    const key=currentKey();const data=currentData();
+    data.menu=menuData;saveWeekData(key,data);
+    renderMenu();
+    addBubble('ai','✅ 献立を反映しました！献立タブで確認してみてください。');
+    btn.disabled=true;btn.textContent='反映済み';
+  }catch(e){
+    addBubble('ai','献立の反映に失敗しました。もう一度試してみてください。');
+  }
+}
+
+async function sendChat(){
+  const inp=document.getElementById('chat-input');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';autoResize(inp);
+  const btn=document.getElementById('send-btn');
+  btn.disabled=true;
+  addBubble('user',text);
+
+  // thinking bubble
+  const msgs=document.getElementById('chat-msgs');
+  const thinking=document.createElement('div');
+  thinking.className='chat-row';
+  thinking.innerHTML='<div class="chat-avatar">🍱</div><div class="bubble ai thinking">考え中…</div>';
+  msgs.appendChild(thinking);msgs.scrollTo(0,9999);
+
+  // context about current week
+  const data=currentData();
+  const weekInfo=fmtWeekLabel(currentKey());
+  const menuSummary=data.menu.map(d=>`${d.day}: ${d.meals.map(m=>m.n).join('、')}`).join('\n');
+  const allWeeks=ls('weeks',{});
+  const pastMenus=Object.entries(allWeeks).filter(([k])=>k!==currentKey()).sort().reverse().slice(0,3).map(([k,v])=>`【${fmtWeekLabel(k)}】\n${v.menu?.map(d=>`${d.day}: ${d.meals?.map(m=>m.n).join('、')}`).join('\n')||'データなし'}`).join('\n\n');
+
+  const systemPrompt=`あなたは鹿児島在住の一人暮らし向け節約献立アシスタントです。
+ユーザーの条件：
+- 2口ガスコンロ・電子レンジ（オーブン付き）
+- 冷蔵庫小（冷蔵110L・冷凍43L）
+- コスパ・ボリューム（1.5人前）優先
+- お酒のつまみになるメニューが好き
+- 鹿児島のスーパーで入手できる食材（さつま揚げ・黒豚など地元食材も活用）
+- 週2回買い出し（月・木）
+- 朝は軽め、昼は時短、夜はがっつり1.5人前
+- 食費目安：週3,500〜4,200円
+
+現在の週：${weekInfo}
+現在の献立：
+${menuSummary}
+
+過去の献立（直近3週）：
+${pastMenus||'まだ履歴なし'}
+
+献立を提案する場合は必ず以下の形式でJSONを含めること：
+[APPLY_MENU:{"0":{"day":"月","badges":[{"t":"買い出し①","c":"green"}],"meals":[...]},...}]
+※JSONは配列形式で7要素（月〜日）。各要素はday,badges,mealsを持つ。mealsはt（朝/昼/夜/仕込）,n（料理名）,ts（つまみbool）を持つ配列。
+ただし会話の質問や相談には通常の文章で回答し、献立提案のときだけJSONを含める。`;
+
+  const messages=chatHistory.slice(-10).map(m=>({role:m.role==='ai'?'assistant':m.role,content:m.content}));
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:systemPrompt,
+        messages:[...messages,{role:'user',content:text}]
+      })
+    });
+    const json=await res.json();
+    thinking.remove();
+    const reply=json.content?.[0]?.text||'エラーが発生しました。';
+    addBubble('ai',reply);
+  }catch(e){
+    thinking.remove();
+    addBubble('ai','通信エラーが発生しました。ネット接続を確認してください。');
+  }
+  btn.disabled=false;
+}
+
+function quickSend(text){
+  document.getElementById('chat-input').value=text;
+  sendChat();
+}
+
+function chatKeydown(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
+}
+
+function autoResize(el){
+  el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+function renderAll(){
+  renderMenu();renderShop();renderRecipes();
+}
+
+updateHeader();renderAll();
+
+// PWA service worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+
+// budget input
+document.getElementById('budget-inp').addEventListener('input',saveBudgetTarget);
+</script>
+</body>
+</html>
