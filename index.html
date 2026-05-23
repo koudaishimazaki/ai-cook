@@ -683,6 +683,8 @@ function toggleRecipe(ri){
 
 // ═══════════════════════ NAVIGATION ═══════════════════════
 function showPage(name,btn){
+  // AIページが開いていたら閉じる
+  document.getElementById('ai-page').classList.remove('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(`page-${name}`)?.classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
@@ -696,12 +698,17 @@ function showPage(name,btn){
 
 function openAI(){
   document.getElementById('ai-page').classList.add('active');
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('[data-p="ai"]')?.classList.add('active');
   if(!chatReady)initChat();
   setTimeout(()=>document.getElementById('chat-msgs').scrollTo(0,99999),100);
 }
 
 function closeAI(){
   document.getElementById('ai-page').classList.remove('active');
+  // 献立タブをデフォルトでアクティブに戻す
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('[data-p="menu"]')?.classList.add('active');
 }
 
 // ═══════════════════════ AI CHAT ═══════════════════════
