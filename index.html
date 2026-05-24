@@ -209,9 +209,29 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div id="page-menu" class="page active">
     <div class="sec-hd">
       <div class="sec-title">今週の献立</div>
-      <button class="btn btn-s" onclick="openAI()">🤖 AIで更新</button>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-s" onclick="openImport()">📋 JSON取込</button>
+        <button class="btn btn-s" onclick="openAI()">🤖 AI相談</button>
+      </div>
     </div>
     <div id="menu-list"></div>
+  </div>
+
+  <!-- JSON IMPORT MODAL -->
+  <div id="import-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;padding:20px;align-items:center;justify-content:center">
+    <div style="background:var(--surface);border-radius:var(--r);padding:20px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:15px;font-weight:500">📋 献立JSONを取り込む</div>
+        <button class="btn btn-s" onclick="closeImport()" style="padding:4px 10px">✕</button>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">ClaudeからもらったJSONをここに貼り付けてください。</div>
+      <textarea id="import-textarea" style="flex:1;min-height:200px;padding:10px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);resize:vertical" placeholder='[{"day":"月","badges":[...],"meals":[...]},...] の形式で貼り付け'></textarea>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-s" style="flex:1" onclick="closeImport()">キャンセル</button>
+        <button class="btn btn-p" style="flex:1" onclick="applyImport()">✅ 反映する</button>
+      </div>
+      <div id="import-error" style="font-size:12px;color:var(--danger);display:none"></div>
+    </div>
   </div>
 
   <div id="page-shop" class="page">
@@ -1628,6 +1648,43 @@ ${pastMenus||'まだ履歴なし'}
 function quickSend(t){document.getElementById('chat-input').value=t;sendChat();}
 function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+
+// ═══════════════════════ JSON IMPORT ═══════════════════════
+function openImport(){
+  document.getElementById('import-modal').style.display='flex';
+  document.getElementById('import-textarea').value='';
+  document.getElementById('import-error').style.display='none';
+}
+
+function closeImport(){
+  document.getElementById('import-modal').style.display='none';
+}
+
+function applyImport(){
+  const raw = document.getElementById('import-textarea').value.trim();
+  const errEl = document.getElementById('import-error');
+  try {
+    const menuData = JSON.parse(raw);
+    if(!Array.isArray(menuData) || menuData.length !== 7){
+      throw new Error('7日分の配列が必要です（月〜日）');
+    }
+    const data = curData();
+    data.menu = menuData;
+    saveData(data);
+    renderMenu();
+    closeImport();
+    scheduleSync();
+    // 成功トースト
+    const toast = document.createElement('div');
+    toast.textContent = '✅ 献立を更新しました！';
+    toast.style.cssText = 'position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 12px);left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:300;white-space:nowrap';
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 2500);
+  } catch(e) {
+    errEl.textContent = 'エラー: ' + e.message;
+    errEl.style.display = 'block';
+  }
+}
 
 // ═══════════════════════ INIT ═══════════════════════
 function renderAll(){renderMenu();renderShop();renderRecipes();}
