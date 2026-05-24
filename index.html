@@ -135,13 +135,13 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tip{margin-top:9px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r-sm);font-size:12px;color:var(--text2);border-left:3px solid var(--accent)}
 
 /* AI CHAT */
-.ai-page{position:fixed;top:0;left:0;right:0;background:var(--bg);z-index:40;display:none;flex-direction:column;height:100dvh}
+.ai-page{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:200;display:none;flex-direction:column}
 .ai-page.active{display:flex}
 .ai-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 14px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ai-hdr-title{font-size:15px;font-weight:500}
 .ai-hdr-sub{font-size:11px;color:var(--text3)}
 .chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0}
-.chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;padding-bottom:calc(10px + var(--safe-b));position:relative;z-index:1}
+.chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;padding-bottom:calc(10px + var(--safe-b))}
 .chat-row{display:flex;gap:8px;align-items:flex-end}
 .chat-row.user{flex-direction:row-reverse}
 .bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.7;word-break:break-word}
@@ -683,8 +683,14 @@ function toggleRecipe(ri){
 
 // ═══════════════════════ NAVIGATION ═══════════════════════
 function showPage(name,btn){
-  // AIページが開いていたら閉じる
-  document.getElementById('ai-page').classList.remove('active');
+  // AIページが開いていたら閉じて通常UIを復元
+  if(document.getElementById('ai-page').classList.contains('active')){
+    document.getElementById('ai-page').classList.remove('active');
+    document.getElementById('main-hdr').style.display='flex';
+    document.getElementById('sync-bar').style.display='flex';
+    document.getElementById('main-scroll').style.display='block';
+    document.getElementById('main-bnav').style.display='flex';
+  }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(`page-${name}`)?.classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
@@ -697,6 +703,11 @@ function showPage(name,btn){
 }
 
 function openAI(){
+  // 通常UIを隠してAIページを全面表示
+  document.getElementById('main-hdr').style.display='none';
+  document.getElementById('sync-bar').style.display='none';
+  document.getElementById('main-scroll').style.display='none';
+  document.getElementById('main-bnav').style.display='none';
   document.getElementById('ai-page').classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector('[data-p="ai"]')?.classList.add('active');
@@ -706,7 +717,11 @@ function openAI(){
 
 function closeAI(){
   document.getElementById('ai-page').classList.remove('active');
-  // 献立タブをデフォルトでアクティブに戻す
+  // 通常UIを復元
+  document.getElementById('main-hdr').style.display='flex';
+  document.getElementById('sync-bar').style.display='flex';
+  document.getElementById('main-scroll').style.display='block';
+  document.getElementById('main-bnav').style.display='flex';
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector('[data-p="menu"]')?.classList.add('active');
 }
