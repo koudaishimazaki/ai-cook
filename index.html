@@ -140,8 +140,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .ai-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 14px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ai-hdr-title{font-size:15px;font-weight:500}
 .ai-hdr-sub{font-size:11px;color:var(--text3)}
-.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px}
-.chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;padding-bottom:calc(10px + var(--safe-b))}
+.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;padding-bottom:calc(10px + var(--safe-b));position:relative;z-index:1}
 .chat-row{display:flex;gap:8px;align-items:flex-end}
 .chat-row.user{flex-direction:row-reverse}
 .bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.7;word-break:break-word}
@@ -149,7 +149,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .bubble.user{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
 .bubble.thinking{color:var(--text3);font-style:italic}
 .av{width:28px;height:28px;border-radius:99px;background:var(--accent-l);display:grid;place-items:center;font-size:13px;flex-shrink:0}
-.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.quick-btns{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.quick-btns::-webkit-scrollbar{display:none}
 .qbtn{font-size:11px;padding:5px 10px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;font-family:inherit;white-space:nowrap}
 .qbtn:active{background:var(--surface2)}
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
