@@ -24,8 +24,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column}
-
-/* SETUP OVERLAY */
+/* SETUP */
 .setup-overlay{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
 .setup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;width:100%;max-width:400px}
 .setup-logo{font-size:32px;text-align:center;margin-bottom:8px}
@@ -36,7 +35,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .setup-input:focus{outline:none;border-color:var(--blue)}
 .setup-btn{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:var(--r-sm);font-size:15px;font-family:inherit;font-weight:500;cursor:pointer}
 .setup-note{font-size:11px;color:var(--text3);text-align:center;margin-top:12px;line-height:1.6}
-
 /* HEADER */
 .hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 14px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:50}
 .hdr-logo{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--accent)}
@@ -45,8 +43,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .week-btn:active{background:var(--border)}
 .week-lbl{font-size:11px;color:var(--text2);text-align:center;line-height:1.4;min-width:90px}
 .week-lbl strong{display:block;font-size:12px;color:var(--text);font-weight:500}
-
-/* SYNC STATUS */
+/* SYNC */
 .sync-bar{height:28px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 14px;flex-shrink:0}
 .sync-status{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
 .sync-dot{width:6px;height:6px;border-radius:99px;background:var(--text3)}
@@ -55,20 +52,16 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .sync-dot.err{background:var(--danger)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .sync-btn{font-size:11px;color:var(--blue);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:500}
-
 /* SCROLL */
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px calc(var(--nav-h) + var(--safe-b) + 16px)}
-
 /* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-b));background:var(--surface);border-top:1px solid var(--border);display:flex;padding-bottom:var(--safe-b);z-index:100}
 .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;padding:8px 0 4px;color:var(--text3)}
 .bnav-btn.active{color:var(--accent)}
 .bnav-icon{font-size:21px;line-height:1}
 .bnav-label{font-size:10px;font-weight:500}
-
 /* PAGE */
 .page{display:none}.page.active{display:block}
-
 /* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:10px}
 .card-hd{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:11px;display:flex;align-items:center;justify-content:space-between}
@@ -76,7 +69,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .pill-o{background:var(--accent-l);color:var(--accent)}
 .pill-g{background:var(--green-l);color:var(--green)}
 .pill-b{background:var(--blue-l);color:var(--blue)}
-
 /* MENU */
 .day-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
 .day-hd{display:flex;align-items:center;gap:8px;padding:10px 13px;background:var(--surface2);cursor:pointer;user-select:none}
@@ -89,7 +81,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .day-card.collapsed .day-body{display:none}
 .tog{margin-left:auto;font-size:11px;color:var(--text3);transition:transform .2s}
 .day-card:not(.collapsed) .tog{transform:rotate(180deg)}
-
 /* SHOP */
 .trip-hd{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px}
 .shop-item{display:grid;grid-template-columns:30px 1fr 50px 72px;align-items:center;gap:7px;padding:8px 11px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:4px;transition:opacity .2s}
@@ -103,7 +94,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .sinput{font-size:12px;font-family:'DM Mono',monospace;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 6px;width:100%;color:var(--text);text-align:right}
 .sinput:focus{outline:none;border-color:var(--blue)}
 .trip-footer{display:flex;justify-content:space-between;font-size:12px;padding:5px 2px;color:var(--text2);font-family:'DM Mono',monospace}
-
 /* BUDGET */
 .bsum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:13px}
 .bcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 8px;text-align:center}
@@ -118,7 +108,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .bar-fill.over{background:var(--danger)}
 .hist-item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
 .hist-item:last-child{border-bottom:none}
-
 /* RECIPE */
 .rcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
 .rhd{padding:12px 13px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
@@ -133,9 +122,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .steps li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:13px;line-height:1.6}
 .step-n{width:20px;height:20px;border-radius:99px;background:var(--accent);color:#fff;font-size:10px;display:grid;place-items:center;flex-shrink:0;margin-top:2px;font-family:'DM Mono',monospace}
 .tip{margin-top:9px;padding:9px 11px;background:var(--accent-l);border-radius:var(--r-sm);font-size:12px;color:var(--text2);border-left:3px solid var(--accent)}
-
 /* AI CHAT */
-.ai-page{position:fixed;top:0;left:0;right:0;background:var(--bg);z-index:40;display:none;flex-direction:column;height:100dvh}
+.ai-page{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:200;display:none;flex-direction:column}
 .ai-page.active{display:flex}
 .ai-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 14px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ai-hdr-title{font-size:15px;font-weight:500}
@@ -149,7 +137,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .bubble.user{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
 .bubble.thinking{color:var(--text3);font-style:italic}
 .av{width:28px;height:28px;border-radius:99px;background:var(--accent-l);display:grid;place-items:center;font-size:13px;flex-shrink:0}
-.quick-btns{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.quick-btns::-webkit-scrollbar{display:none}
+.quick-btns{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.quick-btns::-webkit-scrollbar{display:none}
 .qbtn{font-size:11px;padding:5px 10px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;font-family:inherit;white-space:nowrap}
 .qbtn:active{background:var(--surface2)}
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
@@ -159,7 +148,13 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .send-btn:disabled{opacity:.4}
 .apply-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:7px 13px;background:var(--green);color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-family:inherit;cursor:pointer;font-weight:500}
 .apply-btn:disabled{opacity:.5}
-
+/* IMPORT MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;padding:20px;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--r);padding:20px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;gap:12px}
+.modal-title{font-size:15px;font-weight:500}
+.modal-textarea{flex:1;min-height:180px;padding:10px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);resize:vertical}
+.modal-textarea:focus{outline:none;border-color:var(--blue)}
 /* MISC */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .sec-title{font-size:17px;font-weight:700}
@@ -168,11 +163,13 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
 input[type=number]{-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+.loading{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.toast{position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 12px);left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:300;white-space:nowrap;pointer-events:none}
 </style>
 </head>
 <body>
 
-<!-- SETUP OVERLAY -->
+<!-- SETUP -->
 <div class="setup-overlay" id="setup-overlay" style="display:none">
   <div class="setup-card">
     <div class="setup-logo">🍱</div>
@@ -183,16 +180,16 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <label class="setup-label">Firebase Database URL</label>
     <input class="setup-input" id="setup-fb" type="text" placeholder="https://xxx.firebasedatabase.app" value="https://ai-cook-d2626-default-rtdb.asia-southeast1.firebasedatabase.app">
     <button class="setup-btn" onclick="saveSetup()">設定を保存して始める</button>
-    <div class="setup-note">キーはこの端末のみに保存されます。<br>GitHubやサーバーには送信されません。</div>
+    <div class="setup-note">キーはこの端末のみに保存されます。</div>
   </div>
 </div>
 
-<!-- MAIN UI -->
+<!-- HEADER -->
 <header class="hdr" id="main-hdr" style="display:none">
   <div class="hdr-logo">🍱 献立帳</div>
   <div class="week-nav">
     <button class="week-btn" onclick="changeWeek(-1)">‹</button>
-    <div class="week-lbl" id="week-lbl"><strong>今週</strong><span>--/-- 〜 --/--</span></div>
+    <div class="week-lbl" id="week-lbl"><strong>今週</strong><span>--/--〜--/--</span></div>
     <button class="week-btn" onclick="changeWeek(1)">›</button>
   </div>
 </header>
@@ -206,6 +203,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </div>
 
 <div class="scroll" id="main-scroll" style="display:none">
+  <!-- MENU -->
   <div id="page-menu" class="page active">
     <div class="sec-hd">
       <div class="sec-title">今週の献立</div>
@@ -214,34 +212,19 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         <button class="btn btn-s" onclick="openAI()">🤖 AI相談</button>
       </div>
     </div>
-    <div id="menu-list"></div>
+    <div id="menu-list"><div class="loading">読み込み中...</div></div>
   </div>
 
-  <!-- JSON IMPORT MODAL -->
-  <div id="import-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;padding:20px;align-items:center;justify-content:center">
-    <div style="background:var(--surface);border-radius:var(--r);padding:20px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;gap:12px">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:15px;font-weight:500">📋 献立JSONを取り込む</div>
-        <button class="btn btn-s" onclick="closeImport()" style="padding:4px 10px">✕</button>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6">ClaudeからもらったJSONをここに貼り付けてください。</div>
-      <textarea id="import-textarea" style="flex:1;min-height:200px;padding:10px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);resize:vertical" placeholder='[{"day":"月","badges":[...],"meals":[...]},...] の形式で貼り付け'></textarea>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-s" style="flex:1" onclick="closeImport()">キャンセル</button>
-        <button class="btn btn-p" style="flex:1" onclick="applyImport()">✅ 反映する</button>
-      </div>
-      <div id="import-error" style="font-size:12px;color:var(--danger);display:none"></div>
-    </div>
-  </div>
-
+  <!-- SHOP -->
   <div id="page-shop" class="page">
     <div class="sec-hd">
       <div class="sec-title">買い出しリスト</div>
       <button class="btn btn-s" onclick="resetChecks()">リセット</button>
     </div>
-    <div id="shop-list"></div>
+    <div id="shop-list"><div class="loading">読み込み中...</div></div>
   </div>
 
+  <!-- BUDGET -->
   <div id="page-budget" class="page">
     <div class="sec-hd"><div class="sec-title">予算管理</div></div>
     <div class="bsum" id="bsum"></div>
@@ -259,9 +242,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     </div>
   </div>
 
+  <!-- RECIPE -->
   <div id="page-recipe" class="page">
     <div class="sec-hd"><div class="sec-title">レシピ</div></div>
-    <div id="recipe-list"></div>
+    <div id="recipe-list"><div class="loading">読み込み中...</div></div>
   </div>
 </div>
 
@@ -270,7 +254,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="ai-hdr">
     <div>
       <div class="ai-hdr-title">🤖 献立AIアシスタント</div>
-      <div class="ai-hdr-sub" id="ai-model-lbl">Gemini 2.0 Flash</div>
+      <div class="ai-hdr-sub">Gemini 2.0 Flash</div>
     </div>
     <button class="btn btn-s" onclick="closeAI()">✕ 閉じる</button>
   </div>
@@ -289,900 +273,66 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   </div>
 </div>
 
+<!-- IMPORT MODAL -->
+<div class="modal-bg" id="import-modal">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="modal-title">📋 献立JSONを取り込む</div>
+      <button class="btn btn-s" onclick="closeImport()" style="padding:4px 10px">✕</button>
+    </div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.6">ClaudeからもらったJSONをここに貼り付けてください。</div>
+    <textarea class="modal-textarea" id="import-ta" placeholder='[{"day":"月","badges":[...],"meals":[...]},...] の形式で貼り付け'></textarea>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-s" style="flex:1" onclick="closeImport()">キャンセル</button>
+      <button class="btn btn-p" style="flex:1" onclick="applyImport()">✅ 反映する</button>
+    </div>
+    <div id="import-err" style="font-size:12px;color:var(--danger);display:none"></div>
+  </div>
+</div>
+
 <nav class="bnav" id="main-bnav" style="display:none">
-  <button class="bnav-btn active" data-p="menu" onclick="showPage('menu',this)">
-    <span class="bnav-icon">📅</span><span class="bnav-label">献立</span>
-  </button>
-  <button class="bnav-btn" data-p="shop" onclick="showPage('shop',this)">
-    <span class="bnav-icon">🛒</span><span class="bnav-label">買い出し</span>
-  </button>
-  <button class="bnav-btn" data-p="budget" onclick="showPage('budget',this)">
-    <span class="bnav-icon">💴</span><span class="bnav-label">予算</span>
-  </button>
-  <button class="bnav-btn" data-p="recipe" onclick="showPage('recipe',this)">
-    <span class="bnav-icon">🍳</span><span class="bnav-label">レシピ</span>
-  </button>
-  <button class="bnav-btn" data-p="ai" onclick="openAI()">
-    <span class="bnav-icon">🤖</span><span class="bnav-label">AI相談</span>
-  </button>
+  <button class="bnav-btn active" data-p="menu" onclick="showPage('menu',this)"><span class="bnav-icon">📅</span><span class="bnav-label">献立</span></button>
+  <button class="bnav-btn" data-p="shop" onclick="showPage('shop',this)"><span class="bnav-icon">🛒</span><span class="bnav-label">買い出し</span></button>
+  <button class="bnav-btn" data-p="budget" onclick="showPage('budget',this)"><span class="bnav-icon">💴</span><span class="bnav-label">予算</span></button>
+  <button class="bnav-btn" data-p="recipe" onclick="showPage('recipe',this)"><span class="bnav-icon">🍳</span><span class="bnav-label">レシピ</span></button>
+  <button class="bnav-btn" data-p="ai" onclick="openAI()"><span class="bnav-icon">🤖</span><span class="bnav-label">AI相談</span></button>
 </nav>
 
 <script>
-// ═══════════════════════ CONSTANTS ═══════════════════════
+const FB_BASE = 'https://ai-cook-d2626-default-rtdb.asia-southeast1.firebasedatabase.app';
 const FB_PATH = '/kendate';
-const DAYS = ['日','月','火','水','木','金','土'];
+const DAYS_JP = ['日','月','火','水','木','金','土'];
 
-const DEFAULT_MENU = [
-  {
-    "day": "月",
-    "badges": [
-      {
-        "t": "買い出し①",
-        "c": "g"
-      }
-    ],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "トースト＋ハムエッグ",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "冷凍唐揚げ丼（週末仕込み）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "鶏もも醤油バター炒め・キャベツ千切り・味噌汁",
-        "ts": true
-      }
-    ]
-  },
-  {
-    "day": "火",
-    "badges": [],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "ご飯＋卵かけごはん or 納豆",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "冷凍うどん（めんつゆ・天かす）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "豚こま回鍋肉風・ご飯・味噌汁",
-        "ts": true
-      }
-    ]
-  },
-  {
-    "day": "水",
-    "badges": [],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "トースト＋目玉焼き",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "ひじき煮＋卵焼き＋ご飯（冷蔵常備菜）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "さつま揚げ炒め煮・大根浅漬け・ご飯",
-        "ts": true
-      }
-    ]
-  },
-  {
-    "day": "木",
-    "badges": [
-      {
-        "t": "買い出し②",
-        "c": "g"
-      }
-    ],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "ご飯＋納豆 or 卵焼き",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "焼きそば（豚こま・もやし）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "豚バラじゃがいも煮物・ご飯・もやし味噌汁",
-        "ts": true
-      }
-    ]
-  },
-  {
-    "day": "金",
-    "badges": [],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "トースト＋ハムエッグ",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "冷凍ミートボール丼 or 木曜の煮物残り＋ご飯",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "豆腐ステーキ ポン酢バター・もやしナムル",
-        "ts": true
-      }
-    ]
-  },
-  {
-    "day": "土",
-    "badges": [
-      {
-        "t": "仕込みday",
-        "c": "o"
-      }
-    ],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "ご飯＋目玉焼き・納豆",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "ちゃんぽん風ラーメン（冷凍野菜・豚こま）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "黒豚しゃぶしゃぶ（ポン酢・ごまだれ）",
-        "ts": true
-      },
-      {
-        "t": "仕込",
-        "n": "【冷凍】唐揚げ・ミートボール　【冷蔵】ひじき煮・卵焼き",
-        "ts": false
-      }
-    ]
-  },
-  {
-    "day": "日",
-    "badges": [
-      {
-        "t": "仕込みday",
-        "c": "o"
-      }
-    ],
-    "meals": [
-      {
-        "t": "朝",
-        "n": "ご飯＋常備菜おかず",
-        "ts": false
-      },
-      {
-        "t": "昼",
-        "n": "チャーハン（ご飯消費）",
-        "ts": false
-      },
-      {
-        "t": "夜",
-        "n": "豚キムチ鍋（残り野菜全投入）〆雑炊",
-        "ts": true
-      },
-      {
-        "t": "仕込",
-        "n": "【下味冷凍】豚しょうが焼き用・鶏照り焼き用　【冷蔵】きんぴらごぼう",
-        "ts": false
-      }
-    ]
-  }
+// ── デフォルトデータ（Firebaseに何もない場合のフォールバック）──
+const DEFAULT_MENU=[
+  {day:'月',badges:[{t:'買い出し①',c:'g'}],meals:[{t:'朝',n:'トースト＋ハムエッグ',ts:false},{t:'昼',n:'冷凍唐揚げ丼（週末仕込み）',ts:false},{t:'夜',n:'鶏もも醤油バター炒め・キャベツ千切り・味噌汁',ts:true}]},
+  {day:'火',badges:[],meals:[{t:'朝',n:'ご飯＋卵かけごはん or 納豆',ts:false},{t:'昼',n:'冷凍うどん（めんつゆ・天かす）',ts:false},{t:'夜',n:'豚こま回鍋肉風・ご飯・味噌汁',ts:true}]},
+  {day:'水',badges:[],meals:[{t:'朝',n:'トースト＋目玉焼き',ts:false},{t:'昼',n:'ひじき煮＋卵焼き＋ご飯（冷蔵常備菜）',ts:false},{t:'夜',n:'さつま揚げ炒め煮・大根浅漬け・ご飯',ts:true}]},
+  {day:'木',badges:[{t:'買い出し②',c:'g'}],meals:[{t:'朝',n:'ご飯＋納豆 or 卵焼き',ts:false},{t:'昼',n:'焼きそば（豚こま・もやし）',ts:false},{t:'夜',n:'豚バラじゃがいも煮物・ご飯・もやし味噌汁',ts:true}]},
+  {day:'金',badges:[],meals:[{t:'朝',n:'トースト＋ハムエッグ',ts:false},{t:'昼',n:'冷凍ミートボール丼 or 木曜の煮物残り＋ご飯',ts:false},{t:'夜',n:'豆腐ステーキ ポン酢バター・もやしナムル',ts:true}]},
+  {day:'土',badges:[{t:'仕込みday',c:'o'}],meals:[{t:'朝',n:'ご飯＋目玉焼き・納豆',ts:false},{t:'昼',n:'ちゃんぽん風ラーメン（冷凍野菜・豚こま）',ts:false},{t:'夜',n:'黒豚しゃぶしゃぶ（ポン酢・ごまだれ）',ts:true},{t:'仕込',n:'【冷凍】唐揚げ・ミートボール　【冷蔵】ひじき煮・卵焼き',ts:false}]},
+  {day:'日',badges:[{t:'仕込みday',c:'o'}],meals:[{t:'朝',n:'ご飯＋常備菜おかず',ts:false},{t:'昼',n:'チャーハン（ご飯消費）',ts:false},{t:'夜',n:'豚キムチ鍋（残り野菜全投入）〆雑炊',ts:true},{t:'仕込',n:'【下味冷凍】豚しょうが焼き・鶏照り焼き　【冷蔵】きんぴらごぼう',ts:false}]},
+];
+const DEFAULT_SHOP=[
+  {trip:'買い出し①（月曜）',items:[{n:'鶏もも肉',a:'450g',e:320},{n:'豚こま肉',a:'450g',e:380},{n:'卵',a:'10個パック',e:220},{n:'キャベツ',a:'1/2玉',e:100},{n:'大根',a:'1/2本',e:80},{n:'もやし',a:'2袋',e:60},{n:'豆腐',a:'2丁',e:120},{n:'さつま揚げ',a:'1パック',e:200},{n:'納豆',a:'3パック',e:120},{n:'冷凍うどん',a:'5個入',e:200},{n:'食パン',a:'1斤',e:160},{n:'ハム',a:'1パック',e:150}]},
+  {trip:'買い出し②（木曜）',items:[{n:'豚バラ薄切り',a:'300g',e:300},{n:'黒豚しゃぶ用',a:'200g',e:480},{n:'豚バラ（鍋用）',a:'200g',e:240},{n:'じゃがいも',a:'3個',e:120},{n:'ごぼう',a:'1本',e:100},{n:'ひじき（乾）',a:'1袋',e:120},{n:'キムチ',a:'150g',e:180},{n:'もやし',a:'2袋',e:60},{n:'豆腐',a:'2丁',e:120},{n:'冷凍野菜ミックス',a:'1袋',e:150},{n:'インスタントラーメン',a:'2食',e:160},{n:'食パン',a:'1斤',e:160}]},
 ];
 
-const DEFAULT_SHOP = [
-  {trip:'買い出し①（月曜）',items:[
-    {n:'鶏もも肉',a:'450g',e:320},{n:'豚こま肉',a:'450g',e:380},{n:'卵',a:'10個パック',e:220},
-    {n:'キャベツ',a:'1/2玉',e:100},{n:'大根',a:'1/2本',e:80},{n:'もやし',a:'2袋',e:60},
-    {n:'豆腐',a:'2丁',e:120},{n:'さつま揚げ',a:'1パック',e:200},{n:'納豆',a:'3パック',e:120},
-    {n:'冷凍うどん',a:'5個入',e:200},{n:'食パン',a:'1斤',e:160},{n:'ハム',a:'1パック',e:150},
-  ]},
-  {trip:'買い出し②（木曜）',items:[
-    {n:'豚バラ薄切り',a:'300g',e:300},{n:'黒豚しゃぶ用',a:'200g',e:480},{n:'豚バラ（鍋用）',a:'200g',e:240},
-    {n:'じゃがいも',a:'3個',e:120},{n:'ごぼう',a:'1本',e:100},{n:'ひじき（乾）',a:'1袋',e:120},
-    {n:'キムチ',a:'150g',e:180},{n:'もやし',a:'2袋',e:60},{n:'豆腐',a:'2丁',e:120},
-    {n:'冷凍野菜ミックス',a:'1袋',e:150},{n:'インスタントラーメン',a:'2食',e:160},{n:'食パン',a:'1斤',e:160},
-  ]},
-];
-
-const RECIPES = [
-  {
-    "title": "鶏もも醤油バター炒め",
-    "day": "月・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "鶏もも肉",
-        "q": "225g"
-      },
-      {
-        "n": "キャベツ",
-        "q": "1/4玉"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ1.5"
-      },
-      {
-        "n": "バター",
-        "q": "10g"
-      },
-      {
-        "n": "にんにく",
-        "q": "1片"
-      },
-      {
-        "n": "塩コショウ",
-        "q": "少々"
-      }
-    ],
-    "steps": [
-      "鶏もも肉を一口大に切り塩コショウで下味。",
-      "皮目から中火で3分焼く。",
-      "裏返してにんにく加え2分。",
-      "醤油・バターを絡めてキャベツを30秒炒めて完成。"
-    ],
-    "tip": "バターは最後に入れると香りが飛ばない。焼き色をしっかりつけるとつまみ度UP。"
-  },
-  {
-    "title": "豚こま回鍋肉風",
-    "day": "火・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "豚こま肉",
-        "q": "225g"
-      },
-      {
-        "n": "キャベツ",
-        "q": "1/4玉"
-      },
-      {
-        "n": "味噌",
-        "q": "大さじ1"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ1"
-      },
-      {
-        "n": "醤油",
-        "q": "小さじ1"
-      },
-      {
-        "n": "豆板醤",
-        "q": "小さじ1/2"
-      },
-      {
-        "n": "にんにく",
-        "q": "1片"
-      }
-    ],
-    "steps": [
-      "味噌・みりん・醤油・豆板醤を合わせてたれを作る。",
-      "豚こまを強火で炒め色が変わったらキャベツを加える。",
-      "たれを回しかけて絡めて完成。"
-    ],
-    "tip": "たれを先に合わせておくと焦げない。キャベツはシャキシャキが旨い。"
-  },
-  {
-    "title": "さつま揚げ炒め煮",
-    "day": "水・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "さつま揚げ",
-        "q": "1パック"
-      },
-      {
-        "n": "ごぼう",
-        "q": "1/2本"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ1.5"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ1.5"
-      },
-      {
-        "n": "砂糖",
-        "q": "小さじ1"
-      },
-      {
-        "n": "ごま油",
-        "q": "少々"
-      }
-    ],
-    "steps": [
-      "ごぼうはささがきにして水にさらす。",
-      "フライパンにごま油を熱しごぼうを炒める。",
-      "さつま揚げを加えて醤油・みりん・砂糖を入れ汁気がなくなるまで炒め煮。"
-    ],
-    "tip": "鹿児島産さつま揚げは歯ごたえがあって炒め煮にすると特に旨い。"
-  },
-  {
-    "title": "大根の浅漬け",
-    "day": "水・夜（副菜）",
-    "ts": true,
-    "easy": true,
-    "srv": "作り置き3〜4日分",
-    "ingr": [
-      {
-        "n": "大根",
-        "q": "1/3本"
-      },
-      {
-        "n": "塩",
-        "q": "小さじ1"
-      },
-      {
-        "n": "酢",
-        "q": "大さじ1"
-      },
-      {
-        "n": "砂糖",
-        "q": "小さじ1"
-      },
-      {
-        "n": "昆布",
-        "q": "5cm"
-      }
-    ],
-    "steps": [
-      "大根を薄いいちょう切りにして塩をまぶし10分おく。",
-      "水気を絞り、酢・砂糖・昆布と合わせてよく混ぜる。",
-      "冷蔵庫で30分以上おいて完成。3〜4日保存可。"
-    ],
-    "tip": "昆布が旨みを出してくれる。作り置きして副菜に使い回せる。"
-  },
-  {
-    "title": "豚バラじゃがいも煮物",
-    "day": "木・夜",
-    "ts": true,
-    "easy": false,
-    "srv": "1.5人前＋翌昼分",
-    "ingr": [
-      {
-        "n": "豚バラ薄切り",
-        "q": "225g"
-      },
-      {
-        "n": "じゃがいも",
-        "q": "3個"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ2"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "砂糖",
-        "q": "大さじ1"
-      },
-      {
-        "n": "だし",
-        "q": "300ml"
-      }
-    ],
-    "steps": [
-      "じゃがいもは大きめ乱切り、豚バラは4cm切り。",
-      "鍋で豚バラを炒め、じゃがいもを加える。",
-      "だし・調味料を入れ落し蓋して中火15分。",
-      "じゃがいもに竹串がすっと通れば完成。"
-    ],
-    "tip": "多めに作って翌昼に使うのがコスパ最強。冷凍もできる。"
-  },
-  {
-    "title": "豆腐ステーキ ポン酢バター",
-    "day": "金・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "木綿豆腐",
-        "q": "1.5丁"
-      },
-      {
-        "n": "バター",
-        "q": "15g"
-      },
-      {
-        "n": "ポン酢",
-        "q": "大さじ2"
-      },
-      {
-        "n": "片栗粉",
-        "q": "大さじ1"
-      },
-      {
-        "n": "ごま油",
-        "q": "小さじ1"
-      }
-    ],
-    "steps": [
-      "豆腐をキッチンペーパーで10分水切り。1.5cm厚に切る。",
-      "両面に片栗粉をまぶす。",
-      "ごま油で両面きつね色に焼く（各2分）。",
-      "バター・ポン酢を絡めて完成。"
-    ],
-    "tip": "片栗粉で外カリ中トロに。コスパ最強つまみ。"
-  },
-  {
-    "title": "もやしナムル",
-    "day": "金・夜（副菜）",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "もやし",
-        "q": "1袋"
-      },
-      {
-        "n": "ごま油",
-        "q": "大さじ1"
-      },
-      {
-        "n": "塩",
-        "q": "小さじ1/2"
-      },
-      {
-        "n": "鶏ガラスープ",
-        "q": "小さじ1/2"
-      },
-      {
-        "n": "白ごま",
-        "q": "少々"
-      }
-    ],
-    "steps": [
-      "もやしをさっと茹でて（1分）水気をしっかり切る。",
-      "ごま油・塩・鶏ガラスープで和えて白ごまをふる。"
-    ],
-    "tip": "水気をしっかり切るのがポイント。冷蔵で2〜3日保存可。"
-  },
-  {
-    "title": "黒豚しゃぶしゃぶ",
-    "day": "土・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "黒豚しゃぶ用",
-        "q": "200g"
-      },
-      {
-        "n": "白菜orキャベツ",
-        "q": "1/4個"
-      },
-      {
-        "n": "豆腐",
-        "q": "1丁"
-      },
-      {
-        "n": "だし昆布",
-        "q": "10cm"
-      },
-      {
-        "n": "ポン酢・ごまだれ",
-        "q": "各適量"
-      }
-    ],
-    "steps": [
-      "水と昆布を火にかけ沸騰前に昆布を取り出す。",
-      "野菜・豆腐を入れて煮る。",
-      "豚肉をしゃぶしゃぶしてたれで。",
-      "〆はうどんか雑炊がおすすめ。"
-    ],
-    "tip": "鹿児島産黒豚は脂の甘みが別格。1食500円台に収まる。"
-  },
-  {
-    "title": "豚キムチ鍋",
-    "day": "日・夜",
-    "ts": true,
-    "easy": true,
-    "srv": "1.5人前",
-    "ingr": [
-      {
-        "n": "豚バラ薄切り",
-        "q": "225g"
-      },
-      {
-        "n": "キムチ",
-        "q": "150g"
-      },
-      {
-        "n": "豆腐",
-        "q": "1丁"
-      },
-      {
-        "n": "もやし",
-        "q": "1袋"
-      },
-      {
-        "n": "キャベツ",
-        "q": "残り全部"
-      },
-      {
-        "n": "鶏ガラスープ",
-        "q": "小さじ2"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ1"
-      }
-    ],
-    "steps": [
-      "ごま油で豚バラとキムチを炒める。",
-      "水500mlと鶏ガラ・醤油を加え煮立てる。",
-      "野菜・豆腐を入れ蓋して5分。",
-      "〆に残りご飯と卵で雑炊にして食材使い切り。"
-    ],
-    "tip": "残り野菜を全部使い切れる最強レシピ。"
-  },
-  {
-    "title": "【冷凍仕込み】唐揚げ",
-    "day": "土・仕込み→平日昼",
-    "ts": false,
-    "easy": false,
-    "srv": "4〜5食分（冷凍ストック）",
-    "ingr": [
-      {
-        "n": "鶏もも肉",
-        "q": "600g"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ3"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "酒",
-        "q": "大さじ2"
-      },
-      {
-        "n": "にんにく",
-        "q": "2片"
-      },
-      {
-        "n": "生姜",
-        "q": "1片"
-      },
-      {
-        "n": "片栗粉",
-        "q": "大さじ4"
-      },
-      {
-        "n": "小麦粉",
-        "q": "大さじ2"
-      }
-    ],
-    "steps": [
-      "鶏もも肉を一口大に切る。",
-      "醤油・みりん・酒・にんにく・生姜をもみ込んで30分漬ける。",
-      "片栗粉と小麦粉を合わせてまぶす。",
-      "170℃の油で4分→200℃で1分の二度揚げ。",
-      "粗熱が取れたらジップロックに並べて冷凍。",
-      "食べるときはレンジ600W2分で解凍後、トースターで2分カリッと仕上げる。"
-    ],
-    "tip": "二度揚げで冷凍後もカリッと仕上がる。丼にしてもよし、そのままつまみにしてもよし。"
-  },
-  {
-    "title": "【冷凍仕込み】ミートボール",
-    "day": "土・仕込み→平日昼",
-    "ts": false,
-    "easy": false,
-    "srv": "4〜5食分（冷凍ストック）",
-    "ingr": [
-      {
-        "n": "豚ひき肉",
-        "q": "400g"
-      },
-      {
-        "n": "玉ねぎ",
-        "q": "1/2個"
-      },
-      {
-        "n": "卵",
-        "q": "1個"
-      },
-      {
-        "n": "パン粉",
-        "q": "大さじ3"
-      },
-      {
-        "n": "塩コショウ",
-        "q": "少々"
-      },
-      {
-        "n": "ケチャップ",
-        "q": "大さじ3"
-      },
-      {
-        "n": "ウスターソース",
-        "q": "大さじ2"
-      },
-      {
-        "n": "砂糖",
-        "q": "小さじ1"
-      }
-    ],
-    "steps": [
-      "玉ねぎをみじん切りにしてレンジ2分加熱し冷ます。",
-      "ひき肉・玉ねぎ・卵・パン粉・塩コショウをよく練る。",
-      "一口大に丸めてフライパンで全面焼き色をつける。",
-      "ケチャップ・ソース・砂糖を合わせたたれを絡めて煮詰める。",
-      "粗熱が取れたら冷凍保存。",
-      "食べるときはレンジ600W2〜3分で解凍。丼やパスタにも使える。"
-    ],
-    "tip": "ソースを絡めて冷凍するとご飯に乗せるだけで即完成。"
-  },
-  {
-    "title": "【下味冷凍】豚しょうが焼き用",
-    "day": "日・仕込み→平日夜",
-    "ts": true,
-    "easy": true,
-    "srv": "2〜3食分",
-    "ingr": [
-      {
-        "n": "豚ロース薄切り",
-        "q": "300g"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ2"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "酒",
-        "q": "大さじ1"
-      },
-      {
-        "n": "生姜",
-        "q": "1片"
-      },
-      {
-        "n": "砂糖",
-        "q": "小さじ1"
-      }
-    ],
-    "steps": [
-      "豚ロースを食べやすい大きさに切る。",
-      "醤油・みりん・酒・すりおろし生姜・砂糖を合わせる。",
-      "肉とたれをジップロックに入れてよく揉み込む。",
-      "空気を抜いて冷凍保存（2週間保存可）。",
-      "使うときは前夜か朝に冷蔵庫へ移して解凍→フライパンで焼くだけ。"
-    ],
-    "tip": "解凍してそのまま焼くだけ。キャベツと一緒に炒めれば完璧なつまみ夕食になる。"
-  },
-  {
-    "title": "【下味冷凍】鶏照り焼き用",
-    "day": "日・仕込み→平日夜",
-    "ts": true,
-    "easy": true,
-    "srv": "2〜3食分",
-    "ingr": [
-      {
-        "n": "鶏もも肉",
-        "q": "300g"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ2"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "酒",
-        "q": "大さじ1"
-      },
-      {
-        "n": "砂糖",
-        "q": "大さじ1"
-      },
-      {
-        "n": "にんにく",
-        "q": "1片"
-      }
-    ],
-    "steps": [
-      "鶏もも肉を大きめの一口大に切る。",
-      "醤油・みりん・酒・砂糖・すりおろしにんにくを合わせる。",
-      "肉とたれをジップロックに入れてよく揉み込む。",
-      "空気を抜いて冷凍保存（2週間保存可）。",
-      "使うときは前夜か朝に冷蔵庫へ移して解凍→皮目から焼いてたれを絡めるだけ。"
-    ],
-    "tip": "冷凍中にも味が染み込むので焼き立てがめちゃくちゃ旨い。"
-  },
-  {
-    "title": "【冷蔵常備菜】ひじき煮",
-    "day": "土・仕込み→週前半の昼",
-    "ts": false,
-    "easy": true,
-    "srv": "4〜5食分（冷蔵4日）",
-    "ingr": [
-      {
-        "n": "ひじき（乾）",
-        "q": "30g"
-      },
-      {
-        "n": "油揚げ",
-        "q": "1枚"
-      },
-      {
-        "n": "にんじん",
-        "q": "1/3本"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ2"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "砂糖",
-        "q": "大さじ1"
-      },
-      {
-        "n": "だし",
-        "q": "200ml"
-      }
-    ],
-    "steps": [
-      "ひじきを水で20分戻して水気を切る。",
-      "油揚げを短冊切り、にんじんを細切りにする。",
-      "鍋にごま油を熱し全て炒め合わせる。",
-      "だし・醤油・みりん・砂糖を加えて汁気がなくなるまで中火で煮る。",
-      "冷蔵で4日保存可。"
-    ],
-    "tip": "ご飯との相性抜群。卵焼きと一緒に弁当感覚の昼食になる。"
-  },
-  {
-    "title": "【冷蔵常備菜】きんぴらごぼう",
-    "day": "日・仕込み→週後半の昼",
-    "ts": false,
-    "easy": true,
-    "srv": "4〜5食分（冷蔵4日）",
-    "ingr": [
-      {
-        "n": "ごぼう",
-        "q": "1本"
-      },
-      {
-        "n": "にんじん",
-        "q": "1/3本"
-      },
-      {
-        "n": "醤油",
-        "q": "大さじ2"
-      },
-      {
-        "n": "みりん",
-        "q": "大さじ2"
-      },
-      {
-        "n": "砂糖",
-        "q": "大さじ1"
-      },
-      {
-        "n": "ごま油",
-        "q": "大さじ1"
-      },
-      {
-        "n": "唐辛子",
-        "q": "1本"
-      },
-      {
-        "n": "白ごま",
-        "q": "少々"
-      }
-    ],
-    "steps": [
-      "ごぼうはささがきにして水にさらす（5分）。にんじんは細切り。",
-      "フライパンにごま油と唐辛子を熱しごぼうから炒める。",
-      "にんじんを加えてさらに炒め、醤油・みりん・砂糖を加えて汁気がなくなるまで炒める。",
-      "白ごまをふって完成。冷蔵で4日保存可。"
-    ],
-    "tip": "しっかり炒めることで日持ちが良くなる。ご飯のおともとして最強の常備菜。"
-  },
-  {
-    "title": "【冷蔵常備菜】卵焼き",
-    "day": "土・仕込み→週前半の昼",
-    "ts": false,
-    "easy": true,
-    "srv": "3〜4食分（冷蔵3日）",
-    "ingr": [
-      {
-        "n": "卵",
-        "q": "4個"
-      },
-      {
-        "n": "だし",
-        "q": "大さじ3"
-      },
-      {
-        "n": "醤油",
-        "q": "小さじ1"
-      },
-      {
-        "n": "砂糖",
-        "q": "大さじ1"
-      },
-      {
-        "n": "塩",
-        "q": "少々"
-      },
-      {
-        "n": "サラダ油",
-        "q": "適量"
-      }
-    ],
-    "steps": [
-      "卵・だし・醤油・砂糖・塩をよく混ぜる。",
-      "卵焼き器に油を熱し卵液を1/3ずつ流し込みながら巻いていく（3回）。",
-      "巻きすで形を整えて粗熱を取る。",
-      "切り分けて冷蔵保存（3日）。"
-    ],
-    "tip": "だし巻き卵は冷たくても旨い。昼食の主役になれる常備菜。"
-  }
-];
-
-// ═══════════════════════ STORAGE ═══════════════════════
+// ── ストレージ ──
 function ls(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
 function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
 
-let GEMINI_KEY = '';
-let FB_URL = '';
+let GEMINI_KEY='';
+let FB_URL='';
+// Firebase から読み込んだマスターデータ
+let masterRecipes=[];
+let masterCondiments=[];
+let masterSettings={budget_target:4200};
 
-// ═══════════════════════ SETUP ═══════════════════════
+// ── セットアップ ──
 function checkSetup(){
-  GEMINI_KEY = ls('gemini_key','');
-  FB_URL = ls('fb_url','');
+  GEMINI_KEY=ls('gemini_key','');
+  FB_URL=ls('fb_url','')||FB_BASE;
   if(!GEMINI_KEY){
     document.getElementById('setup-overlay').style.display='flex';
   } else {
@@ -1191,8 +341,8 @@ function checkSetup(){
 }
 
 function saveSetup(){
-  const gk = document.getElementById('setup-gemini').value.trim();
-  const fb = document.getElementById('setup-fb').value.trim();
+  const gk=document.getElementById('setup-gemini').value.trim();
+  const fb=document.getElementById('setup-fb').value.trim();
   if(!gk){alert('Gemini APIキーを入力してください');return;}
   if(!fb){alert('Firebase URLを入力してください');return;}
   ss('gemini_key',gk);ss('fb_url',fb);
@@ -1207,12 +357,69 @@ function startApp(){
   document.getElementById('main-scroll').style.display='block';
   document.getElementById('main-bnav').style.display='flex';
   updateHeader();
-  renderAll();
-  initFirebase();
+  loadMasterData().then(()=>{
+    renderAll();
+  });
 }
 
-// ═══════════════════════ WEEK ═══════════════════════
-let weekOffset = 0;
+// ── Firebase マスターデータ読み込み ──
+async function loadMasterData(){
+  setSyncStatus('syncing','データ読込中...');
+  try{
+    const res=await fetch(`${FB_URL}${FB_PATH}.json`);
+    if(!res.ok)throw new Error();
+    const remote=await res.json();
+    if(remote){
+      if(remote.recipes&&remote.recipes.length)masterRecipes=remote.recipes;
+      if(remote.condiments&&remote.condiments.length)masterCondiments=remote.condiments;
+      if(remote.settings)masterSettings={...masterSettings,...remote.settings};
+      if(remote.weeks){
+        const local=ls('weeks',{});
+        const merged={...local,...remote.weeks};
+        ss('weeks',merged);
+      }
+    }
+    setSyncStatus('ok','同期済み');
+  }catch(e){
+    setSyncStatus('err','オフライン（ローカルデータ使用）');
+  }
+}
+
+// ── Firebase 週データ書き込み ──
+let syncTimer=null;
+function setSyncStatus(state,msg){
+  const dot=document.getElementById('sync-dot');
+  const txt=document.getElementById('sync-msg');
+  dot.className='sync-dot '+state;
+  txt.textContent=msg;
+}
+
+async function pushWeeks(){
+  if(!FB_URL)return;
+  setSyncStatus('syncing','同期中...');
+  try{
+    const weeks=ls('weeks',{});
+    const res=await fetch(`${FB_URL}${FB_PATH}/weeks.json`,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(weeks)
+    });
+    if(!res.ok)throw new Error();
+    setSyncStatus('ok',`同期済み ${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`);
+  }catch(e){
+    setSyncStatus('err','同期失敗');
+  }
+}
+
+function scheduleSync(){
+  if(syncTimer)clearTimeout(syncTimer);
+  syncTimer=setTimeout(pushWeeks,2000);
+}
+
+function syncNow(){pushWeeks();}
+
+// ── 週管理 ──
+let weekOffset=0;
 
 function weekKey(offset=0){
   const d=new Date();
@@ -1236,19 +443,14 @@ function updateHeader(){
   document.getElementById('week-lbl').innerHTML=`<strong>${lbl}</strong><span>${fmtWeek(key)}</span>`;
 }
 
-function changeWeek(d){
-  weekOffset+=d;
-  updateHeader();
-  renderAll();
-}
-
+function changeWeek(d){weekOffset+=d;updateHeader();renderAll();}
 function curKey(){return weekKey(weekOffset);}
 
 function curData(){
   const all=ls('weeks',{});
   const k=curKey();
   if(!all[k]){
-    all[k]={menu:JSON.parse(JSON.stringify(DEFAULT_MENU)),shop:JSON.parse(JSON.stringify(DEFAULT_SHOP)),checks:{},actuals:{},budget:ls('budget_target',4200)};
+    all[k]={menu:JSON.parse(JSON.stringify(DEFAULT_MENU)),shop:JSON.parse(JSON.stringify(DEFAULT_SHOP)),checks:{},actuals:{},budget:masterSettings.budget_target||4200};
     ss('weeks',all);
   }
   return all[k];
@@ -1260,67 +462,7 @@ function saveData(data){
   ss('weeks',all);
 }
 
-// ═══════════════════════ FIREBASE SYNC ═══════════════════════
-let syncTimer=null;
-
-function setSyncStatus(state,msg){
-  const dot=document.getElementById('sync-dot');
-  const txt=document.getElementById('sync-msg');
-  dot.className='sync-dot '+state;
-  txt.textContent=msg;
-}
-
-async function initFirebase(){
-  setSyncStatus('syncing','接続中...');
-  await pullFromFirebase();
-  renderAll();
-}
-
-async function pullFromFirebase(){
-  if(!FB_URL)return;
-  try{
-    const res=await fetch(`${FB_URL}${FB_PATH}.json`);
-    if(!res.ok)throw new Error();
-    const remote=await res.json();
-    if(remote && remote.weeks){
-      const local=ls('weeks',{});
-      // merge: remote wins for keys that exist remotely
-      const merged={...local,...remote.weeks};
-      ss('weeks',merged);
-    }
-    setSyncStatus('ok','同期済み');
-  }catch(e){
-    setSyncStatus('err','オフライン');
-  }
-}
-
-async function pushToFirebase(){
-  if(!FB_URL)return;
-  setSyncStatus('syncing','同期中...');
-  try{
-    const weeks=ls('weeks',{});
-    const res=await fetch(`${FB_URL}${FB_PATH}/weeks.json`,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(weeks)
-    });
-    if(!res.ok)throw new Error();
-    setSyncStatus('ok',`同期済み ${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`);
-  }catch(e){
-    setSyncStatus('err','同期失敗');
-  }
-}
-
-function scheduleSync(){
-  if(syncTimer)clearTimeout(syncTimer);
-  syncTimer=setTimeout(pushToFirebase,2000);
-}
-
-function syncNow(){
-  pushToFirebase();
-}
-
-// ═══════════════════════ RENDER MENU ═══════════════════════
+// ── 献立 ──
 function renderMenu(){
   const data=curData();
   const dates=weekDates(curKey());
@@ -1343,14 +485,35 @@ function renderMenu(){
     </div>`).join('');
 }
 
-function toggleDay(di){
-  document.getElementById(`dc-${di}`).classList.toggle('collapsed');
-}
+function toggleDay(di){document.getElementById(`dc-${di}`).classList.toggle('collapsed');}
 
-// ═══════════════════════ RENDER SHOP ═══════════════════════
+// ── 買い出し ──
 function renderShop(){
   const data=curData();
-  document.getElementById('shop-list').innerHTML=data.shop.map((trip,ti)=>{
+  const condChecks=ls('cond_checks',{});
+  const allCondDone=masterCondiments.length>0&&masterCondiments.every((_,i)=>condChecks[i]);
+  let condHtml='';
+  if(masterCondiments.length>0&&!allCondDone){
+    const items=masterCondiments.map((item,i)=>{
+      const chk=condChecks[i]||false;
+      return `<div class="shop-item ${chk?'done':''}" id="csi-${i}">
+        <input type="checkbox" class="schk" ${chk?'checked':''} onchange="toggleCond(${i},this.checked)">
+        <span class="sname">${item.n}</span>
+        <span class="samt">${item.a}</span>
+        <span style="font-size:11px;color:var(--text3);font-family:'DM Mono',monospace">¥${item.e}</span>
+      </div>`;
+    }).join('');
+    const total=masterCondiments.reduce((s,i)=>s+i.e,0);
+    condHtml=`<div style="margin-bottom:16px">
+      <div class="trip-hd">
+        <span style="font-size:13px;font-weight:500">🧂 調味料（初回）</span>
+        <span class="pill pill-o">目安¥${total.toLocaleString()}</span>
+      </div>
+      ${items}
+      <div style="font-size:11px;color:var(--text3);padding:6px 2px">全てチェックすると次回から非表示になります</div>
+    </div>`;
+  }
+  document.getElementById('shop-list').innerHTML=condHtml+data.shop.map((trip,ti)=>{
     let est=0,act=0,hasAct=false;
     const items=trip.items.map((item,ii)=>{
       const key=`${ti}-${ii}`;
@@ -1376,32 +539,33 @@ function renderShop(){
   }).join('');
 }
 
+function toggleCond(i,val){
+  const condChecks=ls('cond_checks',{});
+  condChecks[i]=val;
+  ss('cond_checks',condChecks);
+  document.getElementById(`csi-${i}`)?.classList.toggle('done',val);
+  if(masterCondiments.every((_,j)=>condChecks[j]))renderShop();
+}
+
 function toggleCheck(ti,ii,val){
   const data=curData();
   data.checks[`${ti}-${ii}`]=val;
   saveData(data);
   document.getElementById(`si-${ti}-${ii}`)?.classList.toggle('done',val);
-  renderBudget();
-  scheduleSync();
+  renderBudget();scheduleSync();
 }
 
 function saveActual(ti,ii,val){
   const data=curData();
   data.actuals[`${ti}-${ii}`]=val===''?'':parseInt(val);
-  saveData(data);
-  renderBudget();
-  scheduleSync();
+  saveData(data);renderBudget();scheduleSync();
 }
 
 function resetChecks(){
-  const data=curData();
-  data.checks={};
-  saveData(data);
-  renderShop();
-  scheduleSync();
+  const data=curData();data.checks={};saveData(data);renderShop();scheduleSync();
 }
 
-// ═══════════════════════ RENDER BUDGET ═══════════════════════
+// ── 予算 ──
 function renderBudget(){
   const data=curData();
   const target=parseInt(document.getElementById('budget-inp')?.value||data.budget)||4200;
@@ -1419,7 +583,6 @@ function renderBudget(){
     <div class="bcard"><div class="num">¥${target.toLocaleString()}</div><div class="lbl">週の予算</div></div>
     <div class="bcard ${hasAct?cls:''}"><div class="num">${hasAct?'¥'+spent.toLocaleString():'—'}</div><div class="lbl">実績支出</div></div>
     <div class="bcard ${hasAct?(diff>=0?'ok':'over'):''}"><div class="num">${hasAct?(diff>=0?'+':'')+diff.toLocaleString()+'円':'—'}</div><div class="lbl">${hasAct?(diff>=0?'残り':'オーバー'):'入力待ち'}</div></div>`;
-
   const bd=document.getElementById('budget-detail');
   if(bd){
     const barCls=pct>=95?'over':pct>=75?'warn':'';
@@ -1433,7 +596,6 @@ function renderBudget(){
       }).join('')}
       <div class="hist-item" style="font-weight:500"><span>週計</span><span style="font-family:'DM Mono',monospace">¥${(hasAct?act:est).toLocaleString()}${hasAct?'':' (予算)'}</span></div>`;
   }
-
   const all=ls('weeks',{});
   const keys=Object.keys(all).sort().reverse().filter(k=>k!==curKey());
   const hl=document.getElementById('hist-list');
@@ -1452,13 +614,18 @@ function renderBudget(){
 
 function saveBudget(){
   const v=parseInt(document.getElementById('budget-inp').value)||4200;
-  const data=curData();data.budget=v;saveData(data);ss('budget_target',v);
-  renderBudget();scheduleSync();
+  const data=curData();data.budget=v;saveData(data);scheduleSync();
+  renderBudget();
 }
 
-// ═══════════════════════ RENDER RECIPE ═══════════════════════
+// ── レシピ（Firebaseから） ──
 function renderRecipes(){
-  document.getElementById('recipe-list').innerHTML=RECIPES.map((r,ri)=>`
+  const recipes=masterRecipes.length>0?masterRecipes:[];
+  if(!recipes.length){
+    document.getElementById('recipe-list').innerHTML='<div class="loading">レシピデータを読み込めませんでした</div>';
+    return;
+  }
+  document.getElementById('recipe-list').innerHTML=recipes.map((r,ri)=>`
     <div class="rcard">
       <div class="rhd" onclick="toggleRecipe(${ri})">
         <div><div class="rtitle">${r.title}</div><div class="rsub">${r.day}｜${r.srv}</div></div>
@@ -1470,9 +637,9 @@ function renderRecipes(){
       </div>
       <div class="rbody" id="rb-${ri}">
         <div class="rlbl">食材（${r.srv}）</div>
-        <div class="ingr-wrap">${r.ingr.map(i=>`<span class="ingr"><strong>${i.n}</strong> ${i.q}</span>`).join('')}</div>
+        <div class="ingr-wrap">${(r.ingr||[]).map(i=>`<span class="ingr"><strong>${i.n}</strong> ${i.q}</span>`).join('')}</div>
         <div class="rlbl">作り方</div>
-        <ol class="steps">${r.steps.map((s,si)=>`<li><span class="step-n">${si+1}</span><span>${s}</span></li>`).join('')}</ol>
+        <ol class="steps">${(r.steps||[]).map((s,si)=>`<li><span class="step-n">${si+1}</span><span>${s}</span></li>`).join('')}</ol>
         ${r.tip?`<div class="tip">💡 ${r.tip}</div>`:''}
       </div>
     </div>`).join('');
@@ -1486,7 +653,7 @@ function toggleRecipe(ri){
   c.style.transform=open?'rotate(180deg)':'';
 }
 
-// ═══════════════════════ NAVIGATION ═══════════════════════
+// ── ナビゲーション ──
 function showPage(name,btn){
   if(document.getElementById('ai-page').classList.contains('active')){
     document.getElementById('ai-page').classList.remove('active');
@@ -1528,7 +695,42 @@ function closeAI(){
   document.querySelector('[data-p="menu"]')?.classList.add('active');
 }
 
-// ═══════════════════════ AI CHAT ═══════════════════════
+// ── JSONインポート ──
+function openImport(){
+  document.getElementById('import-modal').classList.add('open');
+  document.getElementById('import-ta').value='';
+  document.getElementById('import-err').style.display='none';
+}
+
+function closeImport(){document.getElementById('import-modal').classList.remove('open');}
+
+function applyImport(){
+  const raw=document.getElementById('import-ta').value.trim();
+  const errEl=document.getElementById('import-err');
+  try{
+    const menuData=JSON.parse(raw);
+    if(!Array.isArray(menuData)||menuData.length!==7)throw new Error('7日分の配列が必要です（月〜日）');
+    const data=curData();
+    data.menu=menuData;
+    saveData(data);
+    renderMenu();
+    closeImport();
+    scheduleSync();
+    showToast('✅ 献立を更新しました！');
+  }catch(e){
+    errEl.textContent='エラー: '+e.message;
+    errEl.style.display='block';
+  }
+}
+
+function showToast(msg){
+  const t=document.createElement('div');
+  t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+
+// ── AIチャット ──
 let chatHistory=[];
 let chatReady=false;
 
@@ -1538,7 +740,7 @@ function initChat(){
   const msgs=document.getElementById('chat-msgs');
   msgs.innerHTML='';
   if(!chatHistory.length){
-    addBubble('ai','こんにちは！献立AIアシスタントです🍱\n\n今週の献立提案、買い物リスト整理、リピート防止など何でも相談してください！');
+    addBubble('ai','こんにちは！献立AIアシスタントです🍱\n\n今週の献立提案、買い物リスト整理、リピート防止など何でも相談してください！\n\n献立が決まったら「献立タブ」の「📋 JSON取込」ボタンで反映できます。');
   } else {
     chatHistory.forEach(m=>addBubble(m.role,m.content,true));
   }
@@ -1550,13 +752,7 @@ function addBubble(role,text,noSave=false){
   const isAI=role==='ai'||role==='assistant';
   const div=document.createElement('div');
   div.className=`chat-row ${isAI?'':'user'}`;
-  let html=text.replace(/\n/g,'<br>');
-  const match=text.match(/\[APPLY_MENU:([\s\S]*?)\]END/);
-  if(match){
-    div.dataset.mj=match[1];
-    html=html.replace(/\[APPLY_MENU:[\s\S]*?\]END/g,'');
-    html+=`<br><button class="apply-btn" onclick="applyMenu(this)">✅ この献立を反映する</button>`;
-  }
+  const html=text.replace(/\n/g,'<br>');
   div.innerHTML=`${isAI?'<div class="av">🍱</div>':''}<div class="bubble ${isAI?'ai':'user'}">${html}</div>${!isAI?'<div class="av" style="background:var(--blue-l)">👤</div>':''}`;
   msgs.appendChild(div);
   msgs.scrollTo({top:99999,behavior:'smooth'});
@@ -1567,22 +763,6 @@ function addBubble(role,text,noSave=false){
   }
 }
 
-function applyMenu(btn){
-  const row=btn.closest('.chat-row');
-  try{
-    const menuArr=JSON.parse(row.dataset.mj);
-    const data=curData();
-    data.menu=menuArr;
-    saveData(data);
-    renderMenu();
-    addBubble('ai','✅ 献立を反映しました！献立タブで確認してください。');
-    btn.disabled=true;btn.textContent='反映済み';
-    scheduleSync();
-  }catch(e){
-    addBubble('ai','反映に失敗しました。もう一度試してください。');
-  }
-}
-
 async function sendChat(){
   const inp=document.getElementById('chat-input');
   const text=inp.value.trim();
@@ -1590,7 +770,6 @@ async function sendChat(){
   inp.value='';autoResize(inp);
   document.getElementById('send-btn').disabled=true;
   addBubble('user',text);
-
   const msgs=document.getElementById('chat-msgs');
   const th=document.createElement('div');
   th.className='chat-row';
@@ -1609,6 +788,8 @@ async function sendChat(){
 ・コスパ・ボリューム（1.5人前）優先、お酒のつまみになるメニューが好き
 ・鹿児島のスーパーで入手できる食材（さつま揚げ・黒豚など地元食材も活用）
 ・週2回買い出し（月・木）、朝は軽め、昼は時短、夜はがっつり1.5人前
+・平日昼：麺類・冷凍おかず丼・冷蔵常備菜をバランスよく（全部麺類NG）
+・週末（土日）に平日昼用の冷凍おかず・下味冷凍・冷蔵常備菜を仕込む
 ・食費目安：週3,500〜4,200円
 
 【今週（${fmtWeek(curKey())}）の現在の献立】
@@ -1617,11 +798,14 @@ ${menuSummary}
 【過去の献立（直近3週）】
 ${pastMenus||'まだ履歴なし'}
 
-献立を提案する場合は以下の形式でJSONを含めること（必ず]ENDで終わること）：
-[APPLY_MENU:[{"day":"月","badges":[{"t":"買い出し①","c":"g"}],"meals":[{"t":"朝","n":"料理名","ts":false},{"t":"昼","n":"料理名","ts":false},{"t":"夜","n":"料理名","ts":true}]},{"day":"火","badges":[],"meals":[...]},{"day":"水","badges":[],"meals":[...]},{"day":"木","badges":[{"t":"買い出し②","c":"g"}],"meals":[...]},{"day":"金","badges":[],"meals":[...]},{"day":"土","badges":[{"t":"作り置き","c":"o"}],"meals":[...]},{"day":"日","badges":[{"t":"作り置き","c":"o"}],"meals":[...]}]]END
+献立を提案する場合は以下のJSON形式を含めてください（コードブロックなし）：
+MENU_JSON_START
+[{"day":"月","badges":[{"t":"買い出し①","c":"g"}],"meals":[{"t":"朝","n":"料理名","ts":false},{"t":"昼","n":"料理名","ts":false},{"t":"夜","n":"料理名","ts":true}]},{"day":"火","badges":[],"meals":[...]},{"day":"水","badges":[],"meals":[...]},{"day":"木","badges":[{"t":"買い出し②","c":"g"}],"meals":[...]},{"day":"金","badges":[],"meals":[...]},{"day":"土","badges":[{"t":"仕込みday","c":"o"}],"meals":[...]},{"day":"日","badges":[{"t":"仕込みday","c":"o"}],"meals":[...]}]
+MENU_JSON_END
 会話・質問には通常の文章で回答し、献立提案のときだけJSONを含める。`;
 
   const messages=chatHistory.slice(-10).map(m=>({role:m.role==='ai'?'assistant':m.role,content:m.content}));
+  const sysMsg='【システム指示】\n'+system+'\n\nわかりました。';
 
   try{
     const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,{
@@ -1630,14 +814,37 @@ ${pastMenus||'まだ履歴なし'}
       body:JSON.stringify({
         system_instruction:{parts:[{text:system}]},
         contents:[...messages.map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]})),{role:'user',parts:[{text:text}]}],
-        generationConfig:{maxOutputTokens:1200,temperature:0.7}
+        generationConfig:{maxOutputTokens:1500,temperature:0.7}
       })
     });
     const json=await res.json();
     th.remove();
-    if(json.error){addBubble('ai',`エラー: ${json.error.message}`);return;}
-    const reply=json.candidates?.[0]?.content?.parts?.[0]?.text||'応答を取得できませんでした。';
-    addBubble('ai',reply);
+    if(json.error){addBubble('ai','エラー: '+json.error.message);document.getElementById('send-btn').disabled=false;return;}
+    let reply=json.candidates?.[0]?.content?.parts?.[0]?.text||'応答を取得できませんでした。';
+
+    // JSONを抽出してコピーボタン付きで表示
+    const jsonMatch=reply.match(/MENU_JSON_START\s*([\s\S]*?)\s*MENU_JSON_END/);
+    if(jsonMatch){
+      const jsonStr=jsonMatch[1].trim();
+      reply=reply.replace(/MENU_JSON_START[\s\S]*?MENU_JSON_END/,'');
+      reply=reply.trim();
+      addBubble('ai',reply);
+      // JSONコピーボタン付きバブル
+      const jdiv=document.createElement('div');
+      jdiv.className='chat-row';
+      jdiv.innerHTML=`<div class="av">🍱</div><div class="bubble ai" style="max-width:90%;width:90%">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:6px">📋 献立JSONが生成されました</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="apply-btn" onclick="copyAndOpenImport(this)" data-json='${jsonStr.replace(/'/g,"\\'")}'>📋 コピーして取込画面を開く</button>
+        </div>
+      </div>`;
+      msgs.appendChild(jdiv);
+      msgs.scrollTo({top:99999,behavior:'smooth'});
+      chatHistory.push({role:'assistant',content:reply+'\n[献立JSONを生成しました]'});
+      ss('chat_hist',chatHistory);
+    } else {
+      addBubble('ai',reply);
+    }
   }catch(e){
     th.remove();
     addBubble('ai','通信エラーが発生しました。ネット接続とAPIキーを確認してください。');
@@ -1645,55 +852,26 @@ ${pastMenus||'まだ履歴なし'}
   document.getElementById('send-btn').disabled=false;
 }
 
+function copyAndOpenImport(btn){
+  const json=btn.getAttribute('data-json');
+  navigator.clipboard?.writeText(json).catch(()=>{});
+  closeAI();
+  document.getElementById('import-ta').value=json;
+  document.getElementById('import-err').style.display='none';
+  document.getElementById('import-modal').classList.add('open');
+  showPage('menu');
+  showToast('JSONをセットしました。「反映する」を押してください');
+}
+
 function quickSend(t){document.getElementById('chat-input').value=t;sendChat();}
 function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
 
-// ═══════════════════════ JSON IMPORT ═══════════════════════
-function openImport(){
-  document.getElementById('import-modal').style.display='flex';
-  document.getElementById('import-textarea').value='';
-  document.getElementById('import-error').style.display='none';
-}
-
-function closeImport(){
-  document.getElementById('import-modal').style.display='none';
-}
-
-function applyImport(){
-  const raw = document.getElementById('import-textarea').value.trim();
-  const errEl = document.getElementById('import-error');
-  try {
-    const menuData = JSON.parse(raw);
-    if(!Array.isArray(menuData) || menuData.length !== 7){
-      throw new Error('7日分の配列が必要です（月〜日）');
-    }
-    const data = curData();
-    data.menu = menuData;
-    saveData(data);
-    renderMenu();
-    closeImport();
-    scheduleSync();
-    // 成功トースト
-    const toast = document.createElement('div');
-    toast.textContent = '✅ 献立を更新しました！';
-    toast.style.cssText = 'position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 12px);left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;z-index:300;white-space:nowrap';
-    document.body.appendChild(toast);
-    setTimeout(()=>toast.remove(), 2500);
-  } catch(e) {
-    errEl.textContent = 'エラー: ' + e.message;
-    errEl.style.display = 'block';
-  }
-}
-
-// ═══════════════════════ INIT ═══════════════════════
+// ── 初期化 ──
 function renderAll(){renderMenu();renderShop();renderRecipes();}
-
 checkSetup();
-
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('./sw.js').catch(()=>{});
-}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+document.getElementById('budget-inp').addEventListener('input',saveBudget);
 </script>
 </body>
 </html>
