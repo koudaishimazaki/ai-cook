@@ -140,7 +140,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .ai-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 14px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ai-hdr-title{font-size:15px;font-weight:500}
 .ai-hdr-sub{font-size:11px;color:var(--text3)}
-.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0}
 .chat-foot{padding:10px 14px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;padding-bottom:calc(10px + var(--safe-b))}
 .chat-row{display:flex;gap:8px;align-items:flex-end}
 .chat-row.user{flex-direction:row-reverse}
@@ -149,7 +149,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .bubble.user{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
 .bubble.thinking{color:var(--text3);font-style:italic}
 .av{width:28px;height:28px;border-radius:99px;background:var(--accent-l);display:grid;place-items:center;font-size:13px;flex-shrink:0}
-.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.quick-btns{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.quick-btns::-webkit-scrollbar{display:none}
 .qbtn{font-size:11px;padding:5px 10px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;font-family:inherit;white-space:nowrap}
 .qbtn:active{background:var(--surface2)}
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
@@ -683,8 +683,13 @@ function toggleRecipe(ri){
 
 // ═══════════════════════ NAVIGATION ═══════════════════════
 function showPage(name,btn){
-  // AIページが開いていたら閉じる
-  document.getElementById('ai-page').classList.remove('active');
+  if(document.getElementById('ai-page').classList.contains('active')){
+    document.getElementById('ai-page').classList.remove('active');
+    document.getElementById('main-hdr').style.display='flex';
+    document.getElementById('sync-bar').style.display='flex';
+    document.getElementById('main-scroll').style.display='block';
+    document.getElementById('main-bnav').style.display='flex';
+  }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(`page-${name}`)?.classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
@@ -697,6 +702,10 @@ function showPage(name,btn){
 }
 
 function openAI(){
+  document.getElementById('main-hdr').style.display='none';
+  document.getElementById('sync-bar').style.display='none';
+  document.getElementById('main-scroll').style.display='none';
+  document.getElementById('main-bnav').style.display='none';
   document.getElementById('ai-page').classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector('[data-p="ai"]')?.classList.add('active');
@@ -706,7 +715,10 @@ function openAI(){
 
 function closeAI(){
   document.getElementById('ai-page').classList.remove('active');
-  // 献立タブをデフォルトでアクティブに戻す
+  document.getElementById('main-hdr').style.display='flex';
+  document.getElementById('sync-bar').style.display='flex';
+  document.getElementById('main-scroll').style.display='block';
+  document.getElementById('main-bnav').style.display='flex';
   document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector('[data-p="menu"]')?.classList.add('active');
 }
@@ -807,7 +819,7 @@ ${pastMenus||'まだ履歴なし'}
   const messages=chatHistory.slice(-10).map(m=>({role:m.role==='ai'?'assistant':m.role,content:m.content}));
 
   try{
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
