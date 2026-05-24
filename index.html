@@ -250,7 +250,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="ai-hdr">
     <div>
       <div class="ai-hdr-title">🤖 献立AIアシスタント</div>
-      <div class="ai-hdr-sub" id="ai-model-lbl">Gemini 1.5 Flash</div>
+      <div class="ai-hdr-sub" id="ai-model-lbl">Gemini 2.0 Flash</div>
     </div>
     <button class="btn btn-s" onclick="closeAI()">✕ 閉じる</button>
   </div>
@@ -819,18 +819,12 @@ ${pastMenus||'まだ履歴なし'}
   const messages=chatHistory.slice(-10).map(m=>({role:m.role==='ai'?'assistant':m.role,content:m.content}));
 
   try{
-    const sysMsg = '【システム指示】\n' + system + '\n\nわかりました。献立アシスタントとして対応します。';
-    const allContents=[
-      {role:'user',parts:[{text:sysMsg}]},
-      {role:'model',parts:[{text:'はい、鹿児島在住の一人暮らし向け節約献立アシスタントとして対応します！'}]},
-      ...messages.map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]})),
-      {role:'user',parts:[{text:text}]}
-    ];
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_KEY}`,{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        contents:allContents,
+        system_instruction:{parts:[{text:system}]},
+        contents:[...messages.map(m=>({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]})),{role:'user',parts:[{text:text}]}],
         generationConfig:{maxOutputTokens:1200,temperature:0.7}
       })
     });
