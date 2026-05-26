@@ -422,16 +422,21 @@ function syncNow(){pushWeeks();}
 let weekOffset=0;
 
 function weekKey(offset=0){
-  const d=new Date();
-  const mon=new Date(d);
-  mon.setDate(d.getDate()-((d.getDay()+6)%7)+offset*7);
-  mon.setHours(0,0,0,0);
-  return mon.toISOString().slice(0,10);
+  const now=new Date();
+  // ローカル日付で月曜を計算
+  const localY=now.getFullYear(),localM=now.getMonth(),localD=now.getDate();
+  const day=now.getDay(); // 0=日
+  const diffToMon=((day+6)%7); // 月曜までの差
+  const mon=new Date(localY,localM,localD-diffToMon+offset*7);
+  const y=mon.getFullYear();
+  const m=String(mon.getMonth()+1).padStart(2,'0');
+  const dd=String(mon.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
 }
 
 function weekDates(mondayStr){
-  const mon=new Date(mondayStr);
-  return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});
+  const [y,m,d]=mondayStr.split('-').map(Number);
+  return Array.from({length:7},(_,i)=>new Date(y,m-1,d+i));
 }
 
 function fmt(d){return `${d.getMonth()+1}/${d.getDate()}`;}
@@ -451,8 +456,14 @@ function curData(){
   const k=curKey();
   if(!all[k]){
     all[k]={menu:JSON.parse(JSON.stringify(DEFAULT_MENU)),shop:JSON.parse(JSON.stringify(DEFAULT_SHOP)),checks:{},actuals:{},budget:masterSettings.budget_target||4200};
-    ss('weeks',all);
+  } else {
+    // 既存データにchecks/actualsがない場合の補完
+    if(!all[k].checks)all[k].checks={};
+    if(!all[k].actuals)all[k].actuals={};
+    if(!all[k].shop)all[k].shop=JSON.parse(JSON.stringify(DEFAULT_SHOP));
+    if(!all[k].menu)all[k].menu=JSON.parse(JSON.stringify(DEFAULT_MENU));
   }
+  ss('weeks',all);
   return all[k];
 }
 
